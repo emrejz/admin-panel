@@ -1,7 +1,13 @@
-import "./index.css";
+import CustomLayout from "../customLayout";
+
+import "./index.scss";
 
 function App() {
-  return <div className="App">app</div>;
+  return (
+    <div className="App">
+      <CustomLayout />
+    </div>
+  );
 }
 
 export default App;
