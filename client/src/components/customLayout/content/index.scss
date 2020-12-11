@@ -1,0 +1,31 @@
+.cutomContentCont {
+  padding: 16px;
+  .addButton {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+  .productListItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    .avatar {
+      width: 100px;
+      height: 100%;
+    }
+    .buttons {
+      float: right;
+      margin-right: 10px;
+      span {
+        cursor: pointer;
+      }
+    }
+    .infoBox {
+      width: 100%;
+    }
+  }
+}
