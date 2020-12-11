@@ -1,14 +1,18 @@
-import { Layout } from "antd";
+import { lazy, Suspense } from "react";
+import { useSelector } from "react-redux";
+import { Layout, Spin } from "antd";
 
 import CustomHeader from "./header";
 import CustomMenu from "./menu";
-import ProductContent from "./content/product";
 
 import "./index.scss";
 
+const ProductContent = lazy(() => import("./content/product"));
 const { Sider } = Layout;
 
 function CustomLayout() {
+  const { name } = useSelector((state) => state.selectedMenuItem);
+
   return (
     <Layout className="layoutCont">
       <CustomHeader />
@@ -17,7 +21,9 @@ function CustomLayout() {
           <CustomMenu />
         </Sider>
         <Layout>
-          <ProductContent />
+          <Suspense fallback={<Spin size="large" className="spin" />}>
+            {name === "productList" && <ProductContent />}
+          </Suspense>
         </Layout>
       </Layout>
     </Layout>
