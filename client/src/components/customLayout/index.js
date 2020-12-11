@@ -2,7 +2,7 @@ import { Layout } from "antd";
 
 import CustomHeader from "./header";
 import CustomMenu from "./menu";
-import CustomContent from "./content";
+import ProductContent from "./content/product";
 
 import "./index.scss";
 
@@ -17,7 +17,7 @@ function CustomLayout() {
           <CustomMenu />
         </Sider>
         <Layout>
-          <CustomContent />
+          <ProductContent />
         </Layout>
       </Layout>
     </Layout>

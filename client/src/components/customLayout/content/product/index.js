@@ -7,7 +7,7 @@ import "./index.scss";
 const { Content } = Layout;
 const { Title, Text } = Typography;
 
-function CustomContent() {
+function ProductContent() {
   const [initLoading, setInitLoading] = useState(false);
   const list = [
     {
@@ -28,7 +28,7 @@ function CustomContent() {
     },
   ];
   return (
-    <Content className="cutomContentCont">
+    <Content className="ProductContentCont">
       <Button className="addButton" type="primary" icon={<PlusOutlined />}>
         Ekle
       </Button>
@@ -66,4 +66,4 @@ function CustomContent() {
   );
 }
 
-export default CustomContent;
+export default ProductContent;
