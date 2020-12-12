@@ -62,7 +62,6 @@ const ProductModal = ({ item }) => {
       }
     } else {
       if (window.confirm("Yeni ürün eklenecek emin misiniz?")) {
-        console.log(form.getFieldsValue());
         fetch(process.env.REACT_APP_CUSTOMER_PRODUCT_API + "/add", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
