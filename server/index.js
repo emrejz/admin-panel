@@ -3,7 +3,11 @@ const app = express();
 const port = 3001;
 require("dotenv").config();
 
+const mongodb = require("./helpers/db/mongo");
 const customerProductRouter = require("./routes/customer/product");
+
+//mongo connection
+mongodb();
 
 //todo auth middleware
 app.use("/api/costomer/product", customerProductRouter);
