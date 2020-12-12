@@ -20,8 +20,18 @@ router.post("/add", async function (req, res, next) {
     next(error);
   }
 });
-router.put("/edit", function (req, res) {
-  res.send("edit");
+router.put("/edit", async function (req, res, next) {
+  try {
+    console.log(req.body);
+    const product = await customerProductSchema.findByIdAndUpdate(
+      req.body._id,
+      { ...req.body },
+      { new: true }
+    );
+    res.json(product);
+  } catch (error) {
+    next(error);
+  }
 });
 router.delete("/delete", function (req, res) {
   res.send("delete");
