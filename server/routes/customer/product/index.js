@@ -1,21 +1,48 @@
 const express = require("express");
+const customerProductSchema = require("../../../models/customer/product");
 const router = express.Router();
 
-router.use(function timeLog(req, res, next) {
-  console.log("Time: ", Date.now());
-  next();
+router.get("/", async function (req, res, next) {
+  try {
+    const products = await customerProductSchema.find({}).sort({
+      createdAt: 1,
+    });
+    if (products) res.json(products);
+    else next({ message: "Ups something went wrong!" });
+  } catch (error) {
+    next(error);
+  }
 });
-router.get("/", function (req, res) {
-  res.send("get");
+router.post("/add", async function (req, res, next) {
+  try {
+    const product = await new customerProductSchema({ ...req.body }).save();
+    if (product) res.json(product);
+    else next({ message: "Ups something went wrong!" });
+  } catch (error) {
+    next(error);
+  }
 });
-router.post("/add", function (req, res) {
-  res.send("add");
+router.put("/edit", async function (req, res, next) {
+  try {
+    const product = await customerProductSchema.findByIdAndUpdate(
+      req.body._id,
+      { ...req.body },
+      { new: true }
+    );
+    if (product) res.json(product);
+    else next({ message: "Ups something went wrong!" });
+  } catch (error) {
+    next(error);
+  }
 });
-router.put("/edit", function (req, res) {
-  res.send("edit");
-});
-router.delete("/delete", function (req, res) {
-  res.send("delete");
+router.delete("/delete", async function (req, res, next) {
+  try {
+    const product = await customerProductSchema.findByIdAndRemove(req.body._id);
+    if (product) res.json(product);
+    else next({ message: "Ups something went wrong!" });
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;
