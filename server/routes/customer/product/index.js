@@ -7,13 +7,18 @@ router.get("/", async function (req, res, next) {
     const products = await customerProductSchema.find({}).sort({
       createdAt: 1,
     });
-    res.json({ products });
+    res.json(products);
   } catch (error) {
     next(error);
   }
 });
-router.post("/add", function (req, res) {
-  res.send("add");
+router.post("/add", async function (req, res, next) {
+  try {
+    const product = await new customerProductSchema({ ...req.body }).save();
+    res.json(product);
+  } catch (error) {
+    next(error);
+  }
 });
 router.put("/edit", function (req, res) {
   res.send("edit");
