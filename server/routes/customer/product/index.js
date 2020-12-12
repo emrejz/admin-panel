@@ -1,12 +1,16 @@
 const express = require("express");
+const customerProductSchema = require("../../../models/customer/product");
 const router = express.Router();
 
-router.use(function timeLog(req, res, next) {
-  console.log("Time: ", Date.now());
-  next();
-});
-router.get("/", function (req, res) {
-  res.send("get");
+router.get("/", async function (req, res, next) {
+  try {
+    const products = await customerProductSchema.find({}).sort({
+      createdAt: 1,
+    });
+    res.json({ products });
+  } catch (error) {
+    next(error);
+  }
 });
 router.post("/add", function (req, res) {
   res.send("add");
