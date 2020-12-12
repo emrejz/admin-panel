@@ -19,7 +19,10 @@ app.use("/api/costomer/product", customerProductRouter);
 
 //error handle
 app.use((err, req, res, next) => {
-  if (err) return res.status(400).json(err);
+  const error = {
+    message: err.message,
+  };
+  if (err) return res.status(400).json({ error });
   return next();
 });
 
