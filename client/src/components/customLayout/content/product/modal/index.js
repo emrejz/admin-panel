@@ -132,7 +132,7 @@ const ProductModal = ({ title, item }) => {
             <Button type="primary" htmlType="submit">
               Onay
             </Button>
-            <Button htmlType="button" onClick={handleCancel}>
+            <Button type="danger" htmlType="button" onClick={handleCancel}>
               İptal
             </Button>
           </Form.Item>
