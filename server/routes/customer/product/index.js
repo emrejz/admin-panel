@@ -7,7 +7,8 @@ router.get("/", async function (req, res, next) {
     const products = await customerProductSchema.find({}).sort({
       createdAt: 1,
     });
-    res.json(products);
+    if (products) res.json(products);
+    else next({ message: "Ups something went wrong!" });
   } catch (error) {
     next(error);
   }
@@ -15,7 +16,8 @@ router.get("/", async function (req, res, next) {
 router.post("/add", async function (req, res, next) {
   try {
     const product = await new customerProductSchema({ ...req.body }).save();
-    res.json(product);
+    if (product) res.json(product);
+    else next({ message: "Ups something went wrong!" });
   } catch (error) {
     next(error);
   }
@@ -27,7 +29,8 @@ router.put("/edit", async function (req, res, next) {
       { ...req.body },
       { new: true }
     );
-    res.json(product);
+    if (product) res.json(product);
+    else next({ message: "Ups something went wrong!" });
   } catch (error) {
     next(error);
   }
@@ -35,7 +38,8 @@ router.put("/edit", async function (req, res, next) {
 router.delete("/delete", async function (req, res, next) {
   try {
     const product = await customerProductSchema.findByIdAndRemove(req.body._id);
-    res.json(product);
+    if (product) res.json(product);
+    else next({ message: "Ups something went wrong!" });
   } catch (error) {
     next(error);
   }
