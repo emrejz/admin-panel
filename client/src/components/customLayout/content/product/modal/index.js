@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Typography, Form, Input, InputNumber } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
+import customNotification from "../../../../customNotification";
+
 import "./index.scss";
 
 const { Text } = Typography;
@@ -18,37 +20,68 @@ const validateMessages = {
   },
 };
 
-const ProductModal = ({ title, item }) => {
+const ProductModal = ({ item }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-
   const [form] = Form.useForm();
+
   useEffect(() => {
-    console.log(item);
     if (item) {
       form.setFieldsValue({
         ...item,
       });
     }
   });
+  useEffect(() => {
+    if (!isModalVisible) {
+      form.resetFields();
+    }
+  }, [isModalVisible]);
   const onFinish = (values) => {
-    if (
-      values.title == item.title &&
-      values.picture === item.picture &&
-      values.price === item.price &&
-      values.description === item.description
-    ) {
-      if (window.confirm("Hiçbir değişiklik yapmadınız!")) {
-        setIsModalVisible(false);
+    if (item) {
+      if (window.confirm("Ürün güncellenecek emin misiniz?")) {
+        fetch(process.env.REACT_APP_CUSTOMER_PRODUCT_API + "/edit", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ _id: item._id, ...form.getFieldsValue() }),
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            setIsModalVisible(false);
+            customNotification({
+              title: "Ürün güncellendi.",
+              description: "Ürün başarıyla güncellendi.",
+            });
+          })
+          .catch((err) =>
+            customNotification({
+              title: "Ürün güncellenemedi!",
+              description:
+                "Ürün güncelleme başarısız oldu! Error: " + err.message,
+            })
+          );
       }
-    } else if (
-      window.confirm(
-        title === "Ekle"
-          ? "Yeni ürün eklenecek emin misiniz?"
-          : "Ürün değiştirilecek emin misiniz?"
-      )
-    ) {
-      console.log(values);
-      setIsModalVisible(false);
+    } else {
+      if (window.confirm("Yeni ürün eklenecek emin misiniz?")) {
+        fetch(process.env.REACT_APP_CUSTOMER_PRODUCT_API + "/add", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form.getFieldsValue()),
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            setIsModalVisible(false);
+            customNotification({
+              title: "Ürün eklendi.",
+              description: "Ürün başarıyla eklendi.",
+            });
+          })
+          .catch((err) =>
+            customNotification({
+              title: "Ürün eklenemedi!",
+              description: "Ürün ekleme başarısız oldu! Error: " + err.message,
+            })
+          );
+      }
     }
   };
   const onFinishFailed = (values) => {
@@ -61,14 +94,17 @@ const ProductModal = ({ title, item }) => {
 
   const handleCancel = () => {
     if (window.confirm("Çıkmak istediğinize emin misiniz?")) {
-      form.resetFields();
       setIsModalVisible(false);
     }
   };
 
   return (
     <>
-      {title === "Ekle" ? (
+      {item ? (
+        <Text onClick={showModal} type="warning">
+          düzelt
+        </Text>
+      ) : (
         <Button
           className="addButton"
           type="primary"
@@ -77,14 +113,10 @@ const ProductModal = ({ title, item }) => {
         >
           Ekle
         </Button>
-      ) : (
-        <Text onClick={showModal} type="warning">
-          düzelt
-        </Text>
       )}
       <Modal
         className="productModalCont"
-        title={title === "Ekle" ? "Yeni ürün ekle" : "Ürünü düzenle"}
+        title={item ? "Ürünü düzenle" : "Yeni ürün ekle"}
         visible={isModalVisible}
         onCancel={handleCancel}
         footer={null}
@@ -132,7 +164,7 @@ const ProductModal = ({ title, item }) => {
             <Button type="primary" htmlType="submit">
               Onay
             </Button>
-            <Button htmlType="button" onClick={handleCancel}>
+            <Button type="danger" htmlType="button" onClick={handleCancel}>
               İptal
             </Button>
           </Form.Item>
