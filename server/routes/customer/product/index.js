@@ -4,9 +4,9 @@ const router = express.Router();
 
 router.get("/", async function (req, res, next) {
   try {
-    const products = await customerProductSchema.find({}).sort({
-      createdAt: 1,
-    });
+    const products = await customerProductSchema
+      .find({})
+      .sort({ createdAt: -1 });
     if (products) res.json(products);
     else next({ message: "Ups something went wrong!" });
   } catch (error) {
@@ -45,4 +45,22 @@ router.delete("/delete", async function (req, res, next) {
   }
 });
 
+router.get("/:page", async function (req, res, next) {
+  try {
+    const products = await customerProductSchema.paginate(
+      {},
+      {
+        page: req.params.page,
+        limit: 10,
+        sort: {
+          createdAt: -1,
+        },
+      }
+    );
+    if (products) res.json(products);
+    else next({ message: "Ups something went wrong!" });
+  } catch (error) {
+    next(error);
+  }
+});
 module.exports = router;
