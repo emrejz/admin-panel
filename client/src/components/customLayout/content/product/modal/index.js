@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Typography, Form, Input, InputNumber } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
+import customNotification from "../../../../customNotification";
+
 import "./index.scss";
 
 const { Text } = Typography;
@@ -20,18 +22,23 @@ const validateMessages = {
 
 const ProductModal = ({ title, item }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-
   const [form] = Form.useForm();
+
   useEffect(() => {
-    console.log(item);
     if (item) {
       form.setFieldsValue({
         ...item,
       });
     }
   });
+  useEffect(() => {
+    if (!isModalVisible) {
+      form.resetFields();
+    }
+  }, [isModalVisible]);
   const onFinish = (values) => {
     if (
+      item &&
       values.title == item.title &&
       values.picture === item.picture &&
       values.price === item.price &&
@@ -41,14 +48,27 @@ const ProductModal = ({ title, item }) => {
         setIsModalVisible(false);
       }
     } else if (
-      window.confirm(
-        title === "Ekle"
-          ? "Yeni ürün eklenecek emin misiniz?"
-          : "Ürün değiştirilecek emin misiniz?"
-      )
+      window.confirm(title === "Ekle" && "Yeni ürün eklenecek emin misiniz?")
     ) {
-      console.log(values);
-      setIsModalVisible(false);
+      fetch(process.env.REACT_APP_CUSTOMER_PRODUCT_API + "/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form.getFieldsValue()),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          setIsModalVisible(false);
+          customNotification({
+            title: "Ürün eklendi.",
+            description: "Ürün başarıyla eklendi",
+          });
+        })
+        .catch((err) =>
+          customNotification({
+            title: "Ürün eklenemedi!",
+            description: "Ürün ekleme başarısız oldu. Error: " + err.message,
+          })
+        );
     }
   };
   const onFinishFailed = (values) => {
@@ -61,7 +81,6 @@ const ProductModal = ({ title, item }) => {
 
   const handleCancel = () => {
     if (window.confirm("Çıkmak istediğinize emin misiniz?")) {
-      form.resetFields();
       setIsModalVisible(false);
     }
   };
