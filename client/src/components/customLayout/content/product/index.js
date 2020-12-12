@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Layout, List, Avatar, Skeleton, Typography, Button } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { Layout, List, Avatar, Skeleton, Typography } from "antd";
+import ProductModal from "./modal";
 
 import "./index.scss";
 
@@ -11,27 +11,25 @@ function ProductContent() {
   const [initLoading, setInitLoading] = useState(false);
   const list = [
     {
-      name: "Hayat su 10 litre",
+      title: "Hayat su 10 litre",
       category: "water",
-      price: "14",
-      moneyEnum: "TL",
+      price: 14,
       description: "10 litre hayat su.",
-      pic: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
+      picture:
+        "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
     },
     {
-      name: "Ülker damak çikolata",
+      title: "Ülker damak çikolata",
       category: "chocolate",
-      price: "5",
-      moneyEnum: "TL",
+      price: 5.2,
       description: "Ülker kare 160 gr çikolata.",
-      pic: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
+      picture:
+        "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
     },
   ];
   return (
     <Content className="ProductContentCont">
-      <Button className="addButton" type="primary" icon={<PlusOutlined />}>
-        Ekle
-      </Button>
+      <ProductModal title={"Ekle"} />
       <List
         className="demo-loadmore-list"
         loading={initLoading}
@@ -40,21 +38,19 @@ function ProductContent() {
         dataSource={list}
         renderItem={(item) => (
           <List.Item className="productListItem">
-            <Avatar src={item.pic} className="avatar" />
+            <Avatar src={item.picture} className="avatar" />
             <div className="infoBox">
-              <Title level={5}>{item.name}</Title>
+              <Title level={5}>{item.title}</Title>
               <div>
                 <Text strong>Fiyat: </Text>
-                <Text>
-                  {item.price} {item.moneyEnum}
-                </Text>
+                <Text>{item.price} TL</Text>
               </div>
               <div>
                 <Text strong>Açıklama: </Text>
                 <Text>{item.description}</Text>
               </div>
               <div className="buttons">
-                <Text type="warning">düzelt</Text>
+                <ProductModal item={item} />
                 {" | "}
                 <Text type="danger">sil</Text>
               </div>
