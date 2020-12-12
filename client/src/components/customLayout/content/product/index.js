@@ -15,7 +15,7 @@ function ProductContent() {
 
   return (
     <Content className="ProductContentCont">
-      <ProductModal title={"Ekle"} />
+      <ProductModal />
       {error ? (
         <CustomResult message={error.message} />
       ) : data ? (
