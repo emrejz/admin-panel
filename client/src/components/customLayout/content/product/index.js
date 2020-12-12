@@ -4,6 +4,7 @@ import useSWR from "swr";
 import ProductModal from "./modal";
 import CustomResult from "../../../customResult";
 import CustomSkeleton from "../../../customSkeleton";
+import customNotification from "../../../customNotification";
 
 import "./index.scss";
 
@@ -12,7 +13,30 @@ const { Title, Text } = Typography;
 
 function ProductContent() {
   const { data, error } = useSWR(process.env.REACT_APP_CUSTOMER_PRODUCT_API);
-
+  const removeProduct = (title, _id) => {
+    if (
+      window.confirm(title + " adlı ürünü silmek istediğinize emin misiniz?")
+    ) {
+      fetch(process.env.REACT_APP_CUSTOMER_PRODUCT_API + "/delete", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ _id }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          customNotification({
+            title: "Ürün silindi.",
+            description: "Ürün başarıyla silindi.",
+          });
+        })
+        .catch((err) =>
+          customNotification({
+            title: "Ürün silinemedi!",
+            description: "Ürün silme başarısız oldu! Error: " + err.message,
+          })
+        );
+    }
+  };
   return (
     <Content className="ProductContentCont">
       <ProductModal />
@@ -39,7 +63,12 @@ function ProductContent() {
                 <div className="buttons">
                   <ProductModal item={item} />
                   {" | "}
-                  <Text type="danger">sil</Text>
+                  <Text
+                    type="danger"
+                    onClick={() => removeProduct(item.title, item._id)}
+                  >
+                    sil
+                  </Text>
                 </div>
               </div>
             </List.Item>
