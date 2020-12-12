@@ -22,7 +22,6 @@ router.post("/add", async function (req, res, next) {
 });
 router.put("/edit", async function (req, res, next) {
   try {
-    console.log(req.body);
     const product = await customerProductSchema.findByIdAndUpdate(
       req.body._id,
       { ...req.body },
@@ -33,8 +32,13 @@ router.put("/edit", async function (req, res, next) {
     next(error);
   }
 });
-router.delete("/delete", function (req, res) {
-  res.send("delete");
+router.delete("/delete", async function (req, res, next) {
+  try {
+    const product = await customerProductSchema.findByIdAndRemove(req.body._id);
+    res.json(product);
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;
