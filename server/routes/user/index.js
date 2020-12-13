@@ -4,14 +4,17 @@ const router = express.Router();
 
 const userSchema = require("../../models/user");
 const { USER_ADMIN_ROLE } = require("../../constants");
+const { sign, verify } = require("../../helpers/jwt");
 
 router.post("/add", async function (req, res, next) {
   try {
-    const { role, password } = req.body;
+    const { role, password, email } = req.body;
     if (role !== USER_ADMIN_ROLE) {
       const hash = await bcrypt.hash(password, 10);
       const user = await new userSchema({ ...req.body, password: hash }).save();
-      if (user) res.json(user);
+      const token = await sign({ email, role });
+
+      if (token) res.json({ token });
       else next({ message: "Ups something went wrong!" });
     } else next({ message: "Its not your business!" });
   } catch (error) {
