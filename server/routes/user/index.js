@@ -22,4 +22,19 @@ router.post("/add", async function (req, res, next) {
   }
 });
 
+router.post("/login", async function (req, res, next) {
+  try {
+    const { password, email } = req.body;
+    const user = await userSchema.findOne({ email });
+    if (user) {
+      const result = await bcrypt.compare(password, user.password);
+      if (result) {
+        const token = await sign({ email, role: user.role });
+        if (token) res.json({ token });
+      } else next({ message: "Ups something went wrong!" });
+    } else next({ message: "Ups something went wrong!" });
+  } catch (error) {
+    next(error);
+  }
+});
 module.exports = router;
