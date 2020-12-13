@@ -25,15 +25,13 @@ const ProductModal = ({ item }) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
+    if (!isModalVisible) {
+      form.resetFields();
+    }
     if (item) {
       form.setFieldsValue({
         ...item,
       });
-    }
-  });
-  useEffect(() => {
-    if (!isModalVisible) {
-      form.resetFields();
     }
   }, [isModalVisible]);
   const onFinish = (values) => {
