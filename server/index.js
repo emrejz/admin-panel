@@ -6,17 +6,20 @@ require("dotenv").config();
 
 const mongodb = require("./helpers/db/mongo");
 const customerProductRouter = require("./routes/customer/product");
+const userRouter = require("./routes/user");
 
 const port = 3001;
 
 //mongo connection
 mongodb();
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //todo auth middleware
 app.use("/api/costomer/product", customerProductRouter);
+app.use("/api/user", userRouter);
 
 //error handle
 app.use((err, req, res, next) => {
