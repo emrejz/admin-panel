@@ -18,6 +18,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //todo auth middleware
+app.use((req, res, next) => {
+  const token = req.body.token || req.headers["x-access-token"];
+  // todo req.user=verify(token)
+  next();
+});
+
 app.use("/api/costomer/product", customerProductRouter);
 app.use("/api/user", userRouter);
 
