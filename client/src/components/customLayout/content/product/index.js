@@ -12,16 +12,22 @@ const { Content } = Layout;
 const { Title, Text } = Typography;
 
 function ProductContent() {
-  const { data, error } = useSWR(process.env.REACT_APP_CUSTOMER_PRODUCT_API);
+  const { data, error } = useSWR(
+    process.env.REACT_APP_CUSTOMER_PRODUCT_API + "/api/costomer/product"
+  );
   const removeProduct = (title, _id) => {
     if (
       window.confirm(title + " adlı ürünü silmek istediğinize emin misiniz?")
     ) {
-      fetch(process.env.REACT_APP_CUSTOMER_PRODUCT_API + "/delete", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ _id }),
-      })
+      fetch(
+        process.env.REACT_APP_CUSTOMER_PRODUCT_API +
+          "/api/costomer/product/delete",
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ _id }),
+        }
+      )
         .then((res) => res.json())
         .then((res) => {
           customNotification({
