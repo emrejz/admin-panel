@@ -8,7 +8,7 @@ const mongodb = require("./helpers/db/mongo");
 const customerProductRouter = require("./routes/customer/product");
 const userRouter = require("./routes/user");
 
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 //mongo connection
 mongodb();
