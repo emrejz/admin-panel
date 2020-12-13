@@ -37,11 +37,15 @@ const ProductModal = ({ item }) => {
   const onFinish = (values) => {
     if (item) {
       if (window.confirm("Ürün güncellenecek emin misiniz?")) {
-        fetch(process.env.REACT_APP_CUSTOMER_PRODUCT_API + "/edit", {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ _id: item._id, ...form.getFieldsValue() }),
-        })
+        fetch(
+          process.env.REACT_APP_CUSTOMER_PRODUCT_API +
+            "/api/costomer/product/edit",
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ _id: item._id, ...form.getFieldsValue() }),
+          }
+        )
           .then((res) => res.json())
           .then((res) => {
             setIsModalVisible(false);
@@ -60,11 +64,15 @@ const ProductModal = ({ item }) => {
       }
     } else {
       if (window.confirm("Yeni ürün eklenecek emin misiniz?")) {
-        fetch(process.env.REACT_APP_CUSTOMER_PRODUCT_API + "/add", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form.getFieldsValue()),
-        })
+        fetch(
+          process.env.REACT_APP_CUSTOMER_PRODUCT_API +
+            "/api/costomer/product/add",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(form.getFieldsValue()),
+          }
+        )
           .then((res) => res.json())
           .then((res) => {
             setIsModalVisible(false);
