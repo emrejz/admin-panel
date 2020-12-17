@@ -12,9 +12,7 @@ const { Content } = Layout;
 const { Title, Text } = Typography;
 
 function ProductContent() {
-  const { data, error } = useSWR(
-    process.env.REACT_APP_CUSTOMER_PRODUCT_API + "/api/costomer/product"
-  );
+  const { data, error } = useSWR("/api/costomer/product");
   const removeProduct = (title, _id) => {
     if (
       window.confirm(title + " adlı ürünü silmek istediğinize emin misiniz?")
@@ -44,42 +42,44 @@ function ProductContent() {
     }
   };
   return (
-    <Content className="ProductContentCont">
-      <ProductModal />
+    <Content className="productContentCont">
       {error ? (
         <CustomResult message={error.message} />
       ) : data ? (
-        <List
-          className="demo-loadmore-list"
-          itemLayout="horizontal"
-          dataSource={data}
-          renderItem={(item) => (
-            <List.Item className="productListItem">
-              <Avatar src={item.picture} className="avatar" />
-              <div className="infoBox">
-                <Title level={5}>{item.title}</Title>
-                <div>
-                  <Text strong>Fiyat: </Text>
-                  <Text>{item.price} TL</Text>
+        <>
+          <ProductModal />
+          <List
+            className="demo-loadmore-list"
+            itemLayout="horizontal"
+            dataSource={data}
+            renderItem={(item) => (
+              <List.Item className="productListItem">
+                <Avatar src={item.picture} className="avatar" />
+                <div className="infoBox">
+                  <Title level={5}>{item.title}</Title>
+                  <div>
+                    <Text strong>Fiyat: </Text>
+                    <Text>{item.price} TL</Text>
+                  </div>
+                  <div>
+                    <Text strong>Açıklama: </Text>
+                    <Text>{item.description}</Text>
+                  </div>
+                  <div className="buttons">
+                    <ProductModal item={item} />
+                    {" | "}
+                    <Text
+                      type="danger"
+                      onClick={() => removeProduct(item.title, item._id)}
+                    >
+                      sil
+                    </Text>
+                  </div>
                 </div>
-                <div>
-                  <Text strong>Açıklama: </Text>
-                  <Text>{item.description}</Text>
-                </div>
-                <div className="buttons">
-                  <ProductModal item={item} />
-                  {" | "}
-                  <Text
-                    type="danger"
-                    onClick={() => removeProduct(item.title, item._id)}
-                  >
-                    sil
-                  </Text>
-                </div>
-              </div>
-            </List.Item>
-          )}
-        />
+              </List.Item>
+            )}
+          />
+        </>
       ) : (
         <CustomSkeleton n={3} />
       )}
