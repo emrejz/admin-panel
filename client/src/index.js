@@ -13,7 +13,26 @@ ReactDOM.render(
     value={{
       refreshInterval: 3000,
       fetcher: (resource, init) =>
-        fetch(resource, init).then((res) => res.json()),
+        fetch(process.env.REACT_APP_CUSTOMER_PRODUCT_API + resource, init).then(
+          async (res) => {
+            if (!res.ok) {
+              let error = new Error(
+                "An error occurred while fetching the data."
+              );
+              // Attach extra info to the error object.
+              const err = await res.json();
+              error = {
+                message:
+                  err.error && err.error.message
+                    ? err.error.message
+                    : error.message,
+                status: res.status,
+              };
+              throw error;
+            }
+            return res.json();
+          }
+        ),
     }}
   >
     <Provider store={store}>
