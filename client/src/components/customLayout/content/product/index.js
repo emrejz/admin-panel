@@ -12,7 +12,7 @@ const { Content } = Layout;
 const { Title, Text } = Typography;
 
 function ProductContent() {
-  const { data, error } = useSWR("/api/costomer/product");
+  const { data, error, mutate } = useSWR("/api/costomer/product");
   const removeProduct = (title, _id) => {
     if (
       window.confirm(title + " adlı ürünü silmek istediğinize emin misiniz?")
@@ -27,7 +27,8 @@ function ProductContent() {
         }
       )
         .then((res) => res.json())
-        .then((res) => {
+        .then(async (res) => {
+          await mutate();
           customNotification({
             title: "Ürün silindi.",
             description: "Ürün başarıyla silindi.",

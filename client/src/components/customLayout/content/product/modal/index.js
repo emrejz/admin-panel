@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { mutate } from "swr";
 import { Modal, Button, Typography, Form, Input, InputNumber } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
@@ -47,7 +48,8 @@ const ProductModal = ({ item }) => {
           }
         )
           .then((res) => res.json())
-          .then((res) => {
+          .then(async (res) => {
+            await mutate("/api/costomer/product");
             setIsModalVisible(false);
             customNotification({
               title: "Ürün güncellendi.",
@@ -74,7 +76,8 @@ const ProductModal = ({ item }) => {
           }
         )
           .then((res) => res.json())
-          .then((res) => {
+          .then(async (res) => {
+            await mutate("/api/costomer/product");
             setIsModalVisible(false);
             customNotification({
               title: "Ürün eklendi.",
