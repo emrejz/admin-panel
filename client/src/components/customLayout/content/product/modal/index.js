@@ -3,8 +3,10 @@ import { mutate } from "swr";
 import { Modal, Button, Typography, Form, Input, InputNumber } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
-import customNotification from "../../../../customNotification";
+//helpers
+import useFetch from "../../../../../helpers/useFetch";
 
+//scss
 import "./index.scss";
 
 const { Text } = Typography;
@@ -23,7 +25,9 @@ const validateMessages = {
 
 const ProductModal = ({ item }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
+  const { fetchOperation } = useFetch();
 
   useEffect(() => {
     if (!isModalVisible) {
@@ -35,64 +39,33 @@ const ProductModal = ({ item }) => {
       });
     }
   }, [isModalVisible]);
-  const onFinish = (values) => {
-    if (item) {
-      if (window.confirm("Ürün güncellenecek emin misiniz?")) {
-        fetch(
-          process.env.REACT_APP_CUSTOMER_PRODUCT_API +
-            "/api/costomer/product/edit",
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ _id: item._id, ...form.getFieldsValue() }),
-          }
-        )
-          .then((res) => res.json())
-          .then(async (res) => {
-            await mutate("/api/costomer/product");
-            setIsModalVisible(false);
-            customNotification({
-              title: "Ürün güncellendi.",
-              description: "Ürün başarıyla güncellendi.",
-            });
-          })
-          .catch((err) =>
-            customNotification({
-              title: "Ürün güncellenemedi!",
-              description:
-                "Ürün güncelleme başarısız oldu! Error: " + err.message,
-            })
-          );
+
+  const onFinish = async () => {
+    setLoading(true);
+    try {
+      if (item) {
+        if (window.confirm("Ürün güncellenecek emin misiniz?")) {
+          await fetchOperation("put", "/api/costomer/product/edit", {
+            _id: item._id,
+            ...form.getFieldsValue(),
+          });
+        }
+      } else {
+        if (window.confirm("Yeni ürün eklenecek emin misiniz?")) {
+          await fetchOperation("post", "/api/costomer/product/add", {
+            ...form.getFieldsValue(),
+          });
+        }
       }
-    } else {
-      if (window.confirm("Yeni ürün eklenecek emin misiniz?")) {
-        fetch(
-          process.env.REACT_APP_CUSTOMER_PRODUCT_API +
-            "/api/costomer/product/add",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(form.getFieldsValue()),
-          }
-        )
-          .then((res) => res.json())
-          .then(async (res) => {
-            await mutate("/api/costomer/product");
-            setIsModalVisible(false);
-            customNotification({
-              title: "Ürün eklendi.",
-              description: "Ürün başarıyla eklendi.",
-            });
-          })
-          .catch((err) =>
-            customNotification({
-              title: "Ürün eklenemedi!",
-              description: "Ürün ekleme başarısız oldu! Error: " + err.message,
-            })
-          );
-      }
+      await mutate("/api/costomer/product");
+      setLoading(false);
+      setIsModalVisible(false);
+    } catch (error) {
+      setLoading(false);
+      setIsModalVisible(true);
     }
   };
+
   const onFinishFailed = (values) => {
     console.log("fail", values);
   };
@@ -123,6 +96,7 @@ const ProductModal = ({ item }) => {
           Ekle
         </Button>
       )}
+
       <Modal
         className="productModalCont"
         title={item ? "Ürünü düzenle" : "Yeni ürün ekle"}
@@ -170,10 +144,15 @@ const ProductModal = ({ item }) => {
             <Input />
           </Form.Item>
           <Form.Item className="buttons">
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={loading}>
               Onay
             </Button>
-            <Button type="danger" htmlType="button" onClick={handleCancel}>
+            <Button
+              type="danger"
+              htmlType="button"
+              onClick={handleCancel}
+              loading={loading}
+            >
               İptal
             </Button>
           </Form.Item>
