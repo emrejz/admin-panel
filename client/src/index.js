@@ -21,13 +21,11 @@ ReactDOM.render(
               );
               // Attach extra info to the error object.
               const err = await res.json();
-              error = {
-                message:
-                  err.error && err.error.message
-                    ? err.error.message
-                    : error.message,
-                status: res.status,
-              };
+              if (err.error)
+                error = {
+                  ...error,
+                  ...err.error,
+                };
               throw error;
             }
             return res.json();
