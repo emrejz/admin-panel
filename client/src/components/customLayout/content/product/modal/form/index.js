@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { mutate } from "swr";
 import { Button, Form, Input, InputNumber } from "antd";
 
@@ -21,28 +21,11 @@ const validateMessages = {
   },
 };
 
-const ProductModalForm = ({
-  item,
-  handleCancel,
-  setIsModalVisible,
-  isModalVisible,
-}) => {
+const ProductModalForm = ({ form, item, handleCancel, setIsModalVisible }) => {
   const [loading, setLoading] = useState(false);
-  const [form] = Form.useForm();
   const { fetchOperation } = useFetch();
 
-  useEffect(() => {
-    if (!isModalVisible) {
-      form.resetFields();
-    }
-    if (item && isModalVisible) {
-      form.setFieldsValue({
-        ...item,
-      });
-    }
-  }, [isModalVisible]);
-
-  const onFinish = async () => {
+  const onFinish = async (values) => {
     setLoading(true);
     try {
       if (item) {
@@ -51,15 +34,23 @@ const ProductModalForm = ({
             _id: item._id,
             ...form.getFieldsValue(),
           });
+          await mutate("/api/costomer/product", (data) =>
+            data.map((elem) => (elem._id == item._id ? item : elem))
+          );
         }
       } else {
         if (window.confirm("Yeni ürün eklenecek emin misiniz?")) {
-          await fetchOperation("post", "/api/costomer/product/add", {
-            ...form.getFieldsValue(),
-          });
+          const res = await fetchOperation(
+            "post",
+            "/api/costomer/product/add",
+            {
+              ...form.getFieldsValue(),
+            }
+          );
+          await mutate("/api/costomer/product", (data) => [res, ...data]);
         }
       }
-      await mutate("/api/costomer/product");
+
       setLoading(false);
       setIsModalVisible(false);
     } catch (error) {
@@ -121,4 +112,5 @@ const ProductModalForm = ({
     </Form>
   );
 };
+
 export default ProductModalForm;

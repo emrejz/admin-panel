@@ -2,7 +2,7 @@ import customNotification from "../components/customNotification";
 
 const useFetch = () => {
   const message = (method) =>
-    method === "add" ? "ekleme" : method === "put" ? "güncelleme" : "silme";
+    method === "post" ? "ekleme" : method === "put" ? "güncelleme" : "silme";
   const fetchOperation = async (method, path, body) => {
     try {
       const result = await fetch(
@@ -22,7 +22,7 @@ const useFetch = () => {
           title: "Başarılı!",
           description: `Ürün ${message(method)} başarılı!`,
         });
-        return true;
+        return res;
       }
     } catch (error) {
       customNotification({
