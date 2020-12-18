@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button, Typography, Form } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
@@ -9,6 +9,15 @@ const { Text } = Typography;
 
 const ProductModal = ({ item }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [form] = Form.useForm();
+  useEffect(() => {
+    form.resetFields();
+    if (item) {
+      form.setFieldsValue({
+        ...item,
+      });
+    }
+  }, [isModalVisible, item]);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -44,10 +53,10 @@ const ProductModal = ({ item }) => {
         footer={null}
       >
         <ProductModalForm
+          form={form}
           item={item}
           handleCancel={handleCancel}
-          isModalVisible={isModalVisible}
-          setIsModalVisible={handleCancel}
+          setIsModalVisible={setIsModalVisible}
         />
       </Modal>
     </>
