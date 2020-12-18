@@ -28,11 +28,8 @@ app.use("/api/costomer/product", customerProductRouter);
 app.use("/api/user", userRouter);
 
 //error handle
-app.use((err, req, res, next) => {
-  const error = {
-    message: err.message,
-  };
-  if (err) return res.status(400).json({ error });
+app.use((error, req, res, next) => {
+  if (error) return res.status(400).json({ error });
   return next();
 });
 

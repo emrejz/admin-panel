@@ -6,7 +6,7 @@ const userSchema = require("../../models/user");
 const { USER_ADMIN_ROLE } = require("../../constants");
 const { sign, verify } = require("../../helpers/jwt");
 
-router.post("/add", async function (req, res, next) {
+router.post("/signup", async function (req, res, next) {
   try {
     const { role, password, email } = req.body;
     if (role !== USER_ADMIN_ROLE) {
@@ -18,11 +18,13 @@ router.post("/add", async function (req, res, next) {
       else next({ message: "Ups something went wrong!" });
     } else next({ message: "Its not your business!" });
   } catch (error) {
-    next(error);
+    if (error.code == 11000) {
+      next({ message: "Email already exists!", code: 11000 });
+    } else next(error);
   }
 });
 
-router.post("/login", async function (req, res, next) {
+router.post("/signin", async function (req, res, next) {
   try {
     const { password, email } = req.body;
     const user = await userSchema.findOne({ email });
