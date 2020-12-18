@@ -7,14 +7,36 @@ import "./index.scss";
 
 const SignForm = () => {
   const [signIn, setSignIn] = useState(true);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const [form] = Form.useForm();
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
+    setLoading(true);
+    setError(null);
     const { email, password, remember } = values;
+    const path = signIn ? "/api/user/signin" : "/api/user/signup";
+    const result = await fetch(
+      process.env.REACT_APP_CUSTOMER_PRODUCT_API + path,
+      {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, role: "customer" }),
+      }
+    );
+    const res = await result.json();
+    if (res.error) {
+      setError(res.error);
+    } else {
+      localStorage.setItem("token", res.token);
+      if (remember)
+        localStorage.setItem("user", JSON.stringify({ email, password }));
+      else localStorage.removeItem("user");
+    }
+    setLoading(false);
   };
   const signInSwitch = () => setSignIn((x) => !x);
-
   return (
     <Form
       form={form}
@@ -27,6 +49,8 @@ const SignForm = () => {
     >
       <Form.Item
         name="email"
+        validateStatus={error && error.code === 11000 ? "error" : null}
+        help={error && error.code == 11000 ? error.message : null}
         hasFeedback
         rules={[
           {
@@ -61,6 +85,7 @@ const SignForm = () => {
           placeholder="Şifre"
         />
       </Form.Item>
+
       <Form.Item
         name="cPassword"
         dependencies={["password"]}
@@ -86,6 +111,7 @@ const SignForm = () => {
           placeholder="Şifreyi tekrar giriniz"
         />
       </Form.Item>
+
       <Form.Item>
         <Form.Item name="remember" valuePropName="checked" noStyle>
           <Checkbox>Remember me</Checkbox>
