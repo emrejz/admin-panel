@@ -7,6 +7,9 @@
     align-items: center;
     margin-left: auto;
   }
+  .deletingItem {
+    opacity: 0.4;
+  }
   .productListItem {
     display: flex;
     flex-direction: row;
