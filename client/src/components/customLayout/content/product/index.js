@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Layout, List, Avatar, Typography, Spin } from "antd";
 import useSWR from "swr";
 
@@ -19,6 +19,7 @@ const { Title, Text } = Typography;
 function ProductContent() {
   const { data, error, mutate } = useSWR("/api/costomer/product");
   const [deletingID, setDeletingID] = useState(null);
+
   const { fetchOperation } = useFetch();
   const removeProduct = async (title, _id) => {
     setDeletingID(_id);
@@ -29,7 +30,7 @@ function ProductContent() {
         await fetchOperation("delete", "/api/costomer/product/delete", {
           _id,
         });
-        await mutate();
+        await mutate((data) => data.map((item) => item._id === _id));
         setDeletingID(null);
       }
     } catch (error) {
