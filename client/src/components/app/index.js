@@ -1,11 +1,11 @@
-import CustomLayout from "../customLayout";
+import Root from "../../router/index";
 
 import "./index.scss";
 
 function App() {
   return (
     <div className="App">
-      <CustomLayout />
+      <Root />
     </div>
   );
 }

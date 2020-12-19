@@ -191,6 +191,86 @@
 				"description": "deletes the product"
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:3001/api/user/signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "adsadsa@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "customer",
+							"description": "enum=> \"admin\", \"customer\", \"user\"",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/user/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"user",
+						"signup"
+					]
+				},
+				"description": "SIGNUP USER WITH POST METHOD. RETURNS TOKEN"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/api/user/signin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "adsadsa@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/user/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"user",
+						"signin"
+					]
+				},
+				"description": "SIGNIN USER WITH POST METHOD. RETURNS TOKEN"
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
