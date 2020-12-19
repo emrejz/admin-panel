@@ -23,7 +23,7 @@ ReactDOM.render(
               const err = await res.json();
               if (err.error)
                 error = {
-                  ...error,
+                  message: error.message,
                   ...err.error,
                 };
               throw error;
