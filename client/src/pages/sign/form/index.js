@@ -106,7 +106,11 @@ const SignForm = () => {
             required: true,
             message: "Lütfen şifre giriniz!",
           },
-
+          {
+            required: true,
+            pattern: new RegExp("^\\S*$"),
+            message: "Şifre boşluk karakteri içeremez!",
+          },
           {
             min: 3,
             message: "Şifre minimum 3 karakterli olmalı!",
@@ -128,6 +132,11 @@ const SignForm = () => {
             {
               required: true,
               message: "Lütfen şifre giriniz!",
+            },
+            {
+              required: true,
+              pattern: new RegExp("^\\S*$"),
+              message: "Şifre boşluk karakteri içeremez!",
             },
             ({ getFieldValue }) => ({
               validator(rule, value) {
