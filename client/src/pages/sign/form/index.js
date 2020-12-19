@@ -19,6 +19,10 @@ const SignForm = () => {
 
   useEffect(() => {
     form.resetFields();
+    const user = localStorage.getItem("user");
+    if (user && signIn) {
+      form.setFieldsValue({ ...JSON.parse(user) });
+    }
   }, [signIn]);
   useEffect(() => {
     if (error) {
