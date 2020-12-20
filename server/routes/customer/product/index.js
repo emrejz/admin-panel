@@ -1,6 +1,8 @@
 const express = require("express");
-const customerProductSchema = require("../../../models/customer/product");
 const router = express.Router();
+
+//models
+const customerProductSchema = require("../../../models/customer/product");
 
 router.get("/", async function (req, res, next) {
   try {
@@ -13,6 +15,7 @@ router.get("/", async function (req, res, next) {
     next(error);
   }
 });
+
 router.post("/add", async function (req, res, next) {
   try {
     const product = await new customerProductSchema({ ...req.body }).save();
@@ -22,6 +25,7 @@ router.post("/add", async function (req, res, next) {
     next(error);
   }
 });
+
 router.put("/edit", async function (req, res, next) {
   try {
     const product = await customerProductSchema.findByIdAndUpdate(
@@ -35,6 +39,7 @@ router.put("/edit", async function (req, res, next) {
     next(error);
   }
 });
+
 router.delete("/delete", async function (req, res, next) {
   try {
     const product = await customerProductSchema.findByIdAndRemove(req.body._id);
@@ -63,4 +68,5 @@ router.get("/:page", async function (req, res, next) {
     next(error);
   }
 });
+
 module.exports = router;
