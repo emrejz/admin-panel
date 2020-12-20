@@ -8,9 +8,15 @@ module.exports = (req, res, next) => {
       req.user = user;
       next();
     } else {
-      next({ message: "Authentication failed!", code: 150 });
+      next({
+        message: "Authentication failed, please sign in again!",
+        code: 150,
+      });
     }
   } catch (error) {
-    next({ message: "Authentication failed!", code: 150 });
+    next({
+      message: "Authentication failed, please sign in again!",
+      code: 150,
+    });
   }
 };

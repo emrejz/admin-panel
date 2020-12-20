@@ -53,10 +53,16 @@ router.post("/auth", async function (req, res, next) {
       const user = await verify(token);
       return res.json({ user });
     } else {
-      next({ message: "Authentication failed!", code: 150 });
+      next({
+        message: "Authentication failed, please sign in again!",
+        code: 150,
+      });
     }
   } catch (error) {
-    next({ message: "Authentication failed!", code: 150 });
+    next({
+      message: "Authentication failed, please sign in again!",
+      code: 150,
+    });
   }
 });
 
