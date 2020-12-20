@@ -1,0 +1,40 @@
+.productContentCont {
+  padding: 16px;
+  overflow-y: auto;
+  .addButton {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+  .deletingItem {
+    opacity: 0.4;
+  }
+  .productListItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    .ant-avatar {
+      border-radius: 0;
+    }
+    .avatar {
+      width: 100px;
+      height: 100%;
+      flex-shrink: 0;
+      margin: 0 8px;
+    }
+    .buttons {
+      float: right;
+      margin-right: 10px;
+      span {
+        cursor: pointer;
+      }
+    }
+    .infoBox {
+      width: 100%;
+    }
+  }
+}
