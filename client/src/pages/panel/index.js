@@ -15,14 +15,15 @@ const CustomerContent = lazy(() => import("./content/customer"));
 const { Sider } = Layout;
 
 export default ({ session }) => {
+  const { role } = session;
   const { name } = useSelector((state) => state.selectedMenuItem);
 
   return (
     <Layout className="layoutCont">
-      <CustomHeader role={session.role} />
+      <CustomHeader role={role} />
       <Layout>
         <Sider className="menuSider">
-          <CustomMenu />
+          <CustomMenu role={role} />
         </Sider>
         <Layout>
           <Suspense fallback={<Spin size="large" className="spin" />}>
