@@ -4,11 +4,11 @@ import useSWR from "swr";
 
 //comps
 import ProductModal from "./modal";
-import CustomResult from "../../../customResult";
-import CustomSkeleton from "../../../customSkeleton";
+import CustomResult from "../../../components/customResult";
+import CustomSkeleton from "../../../components/customSkeleton";
 
 //helpers
-import useFetch from "../../../../helpers/useFetch";
+import useFetch from "../../../helpers/useFetch";
 
 //scss
 import "./index.scss";
@@ -16,7 +16,7 @@ import "./index.scss";
 const { Content } = Layout;
 const { Title, Text } = Typography;
 
-function ProductContent() {
+export default () => {
   const { data, error, mutate } = useSWR("/api/costomer/product");
   const [deletingID, setDeletingID] = useState(null);
 
@@ -93,6 +93,4 @@ function ProductContent() {
       )}
     </Content>
   );
-}
-
-export default ProductContent;
+};

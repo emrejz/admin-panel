@@ -1,4 +1,4 @@
-import CustomLayot from "../../components/customLayout";
+import CustomLayot from "./layout";
 
 const Panel = () => {
   return <CustomLayot />;
