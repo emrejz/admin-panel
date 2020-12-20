@@ -1,5 +1,4 @@
 import { lazy, Suspense } from "react";
-import { useSelector } from "react-redux";
 import { Layout, Spin } from "antd";
 
 //comps
@@ -11,12 +10,12 @@ import "./index.scss";
 
 //pages-contents
 const CustomerContent = lazy(() => import("./content/customer"));
+const AdminContent = lazy(() => import("./content/admin"));
 
 const { Sider } = Layout;
 
 export default ({ session }) => {
   const { role } = session;
-  const { name } = useSelector((state) => state.selectedMenuItem);
 
   return (
     <Layout className="layoutCont">
@@ -27,7 +26,7 @@ export default ({ session }) => {
         </Sider>
         <Layout>
           <Suspense fallback={<Spin size="large" className="spin" />}>
-            {name === "productList" && <CustomerContent />}
+            {role === "admin" ? <AdminContent /> : <CustomerContent />}
           </Suspense>
         </Layout>
       </Layout>
