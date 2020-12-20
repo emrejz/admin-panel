@@ -1,33 +1,35 @@
 import { lazy, Suspense } from "react";
-import { useSelector } from "react-redux";
 import { Layout, Spin } from "antd";
 
+//comps
 import CustomHeader from "./header";
 import CustomMenu from "./menu";
 
+//scss
 import "./index.scss";
 
-const ProductContent = lazy(() => import("./content/product"));
+//pages-contents
+const CustomerContent = lazy(() => import("./content/customer"));
+const AdminContent = lazy(() => import("./content/admin"));
+
 const { Sider } = Layout;
 
-function CustomLayout() {
-  const { name } = useSelector((state) => state.selectedMenuItem);
+export default ({ session }) => {
+  const { role } = session;
 
   return (
     <Layout className="layoutCont">
-      <CustomHeader />
+      <CustomHeader role={role} />
       <Layout>
         <Sider className="menuSider">
-          <CustomMenu />
+          <CustomMenu role={role} />
         </Sider>
         <Layout>
           <Suspense fallback={<Spin size="large" className="spin" />}>
-            {name === "productList" && <ProductContent />}
+            {role === "admin" ? <AdminContent /> : <CustomerContent />}
           </Suspense>
         </Layout>
       </Layout>
     </Layout>
   );
-}
-
-export default CustomLayout;
+};

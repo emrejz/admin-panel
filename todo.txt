@@ -1,3 +1,7 @@
-1) add category field for products
-2) authenticate to the customer only to enter own panel
-3) make pagination with mongoose for products => pagination ok on server side but learn how to use with swr on client side
+1) add category field for products.
+2) authenticate to the customer only to enter own panel.
+3) make pagination with mongoose for products.
+    +pagination ok on server side but learn how to use with swr on client side
+
+4) list and explain error codes. ✔
+5) find best practise \admin-panel\client\src\pages\sign\form\index.js #76

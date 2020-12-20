@@ -1,4 +1,4 @@
-.productContentCont {
+.customerProductContentCont {
   padding: 16px;
   overflow-y: auto;
   .addButton {
@@ -10,13 +10,15 @@
   .deletingItem {
     opacity: 0.4;
   }
-  .productListItem {
+  .customerProductListItem {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     background-color: white;
     border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 6px;
     .ant-avatar {
       border-radius: 0;
     }
@@ -28,7 +30,6 @@
     }
     .buttons {
       float: right;
-      margin-right: 10px;
       span {
         cursor: pointer;
       }

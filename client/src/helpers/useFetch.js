@@ -1,6 +1,7 @@
 import customNotification from "../components/customNotification";
 
 const useFetch = () => {
+  const token = localStorage.getItem("token");
   const message = (method) =>
     method === "post" ? "ekleme" : method === "put" ? "güncelleme" : "silme";
   const fetchOperation = async (method, path, body) => {
@@ -9,7 +10,7 @@ const useFetch = () => {
         process.env.REACT_APP_CUSTOMER_PRODUCT_API + path,
         {
           method,
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", Authorization: token },
           body: JSON.stringify(body),
         }
       );

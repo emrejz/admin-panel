@@ -1,11 +1,13 @@
 const express = require("express");
-const customerProductSchema = require("../../../models/customer/product");
 const router = express.Router();
+
+//models
+const customerProductSchema = require("../../../models/customer/product");
 
 router.get("/", async function (req, res, next) {
   try {
     const products = await customerProductSchema
-      .find({})
+      .find({ customerID: req.user._id })
       .sort({ createdAt: -1 });
     if (products) res.json(products);
     else next({ message: "Ups something went wrong!" });
@@ -13,15 +15,20 @@ router.get("/", async function (req, res, next) {
     next(error);
   }
 });
+
 router.post("/add", async function (req, res, next) {
   try {
-    const product = await new customerProductSchema({ ...req.body }).save();
+    const product = await new customerProductSchema({
+      customerID: req.user._id,
+      ...req.body,
+    }).save();
     if (product) res.json(product);
     else next({ message: "Ups something went wrong!" });
   } catch (error) {
     next(error);
   }
 });
+
 router.put("/edit", async function (req, res, next) {
   try {
     const product = await customerProductSchema.findByIdAndUpdate(
@@ -35,6 +42,7 @@ router.put("/edit", async function (req, res, next) {
     next(error);
   }
 });
+
 router.delete("/delete", async function (req, res, next) {
   try {
     const product = await customerProductSchema.findByIdAndRemove(req.body._id);
@@ -63,4 +71,5 @@ router.get("/:page", async function (req, res, next) {
     next(error);
   }
 });
+
 module.exports = router;
