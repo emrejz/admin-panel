@@ -3,13 +3,13 @@ const bcrypt = require("bcryptjs");
 const router = express.Router();
 
 //models
-const userSchema = require("../../../models/user");
+const userSchema = require("../../models/user");
 
 //constants
-const { USER_ADMIN_ROLE } = require("../../../constants");
+const { USER_ADMIN_ROLE } = require("../../constants");
 
 //helpers
-const { sign, verify } = require("../../../helpers/jwt");
+const { sign, verify } = require("../../helpers/jwt");
 
 router.post("/signup", async function (req, res, next) {
   try {
@@ -46,7 +46,7 @@ router.post("/signin", async function (req, res, next) {
   }
 });
 
-router.post("/auth", async function (req, res, next) {
+router.post("/", async function (req, res, next) {
   try {
     const token = req.headers["authorization"];
     if (token && token !== "null") {
