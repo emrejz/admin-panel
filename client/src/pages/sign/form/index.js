@@ -47,7 +47,6 @@ const SignForm = () => {
       }
     }
   }, [error]);
-
   const onFinish = async (values) => {
     if (!loading) {
       setLoading(true);
@@ -63,15 +62,20 @@ const SignForm = () => {
         }
       );
       const res = await result.json();
+      setLoading(false);
+
       if (res.error) {
         setError(res.error);
       } else {
         localStorage.setItem("token", res.token);
-        if (remember)
+        if (remember) {
           localStorage.setItem("user", JSON.stringify({ email, password }));
-        else localStorage.removeItem("user");
+        } else {
+          localStorage.removeItem("user");
+        }
+        //find best practise
+        window.location.reload();
       }
-      setLoading(false);
     }
   };
   const signInSwitch = () => setSignIn((x) => !x);
