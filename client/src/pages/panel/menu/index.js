@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 //constants
 import { actionTypes } from "../../../store/selectMenu/constants";
 import { customerMenuList, adminMenuList } from "../../../constants/menu";
+import { adminRole } from "../../../constants/general";
 
 //scss
 import "./index.scss";
@@ -13,7 +14,7 @@ const { SubMenu } = Menu;
 
 function CustomMenu({ role }) {
   const [list, setList] = useState(
-    role == "admin" ? adminMenuList : customerMenuList
+    role === adminRole ? adminMenuList : customerMenuList
   );
   const dispatch = useDispatch();
   return (
