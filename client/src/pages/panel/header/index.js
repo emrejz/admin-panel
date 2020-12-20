@@ -1,5 +1,8 @@
 import { Layout, Typography, Button } from "antd";
 
+//constants
+import { adminRole } from "../../../constants/general";
+
 import "./index.scss";
 
 const { Title } = Typography;
@@ -14,9 +17,7 @@ function CustomHeader({ role }) {
   };
   return (
     <Header className="customHeaderCont">
-      <Title level={2}>
-        {role === "admin" ? "Admin panel" : "Müşteri panel"}
-      </Title>
+      <Title level={2}>{role === adminRole ? "Admin " : "Müşteri "}panel</Title>
       <Button onClick={_onClick}>Sign Out</Button>
     </Header>
   );
