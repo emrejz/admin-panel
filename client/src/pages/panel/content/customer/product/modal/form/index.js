@@ -35,7 +35,7 @@ const ProductModalForm = ({ form, item, handleCancel, setIsModalVisible }) => {
             ...form.getFieldsValue(),
           });
           await mutate("/api/costomer/product", (data) =>
-            data.map((elem) => (elem._id == item._id ? item : elem))
+            data.map((elem) => (elem._id === item._id ? item : elem))
           );
         }
       } else {

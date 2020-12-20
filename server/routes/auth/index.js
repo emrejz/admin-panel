@@ -22,7 +22,7 @@ router.post("/signup", async function (req, res, next) {
       else next({ message: "Ups something went wrong!", code: 300 });
     } else next({ message: "Its not your business!", code: 103 });
   } catch (error) {
-    if (error.code == 11000) {
+    if (error.code === 11000) {
       next({ message: "Email already exists!", code: 100 });
     } else next(error);
   }
