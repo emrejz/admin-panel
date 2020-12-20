@@ -2,7 +2,16 @@ import {
   ShoppingCartOutlined,
   NotificationOutlined,
   ProfileOutlined,
+  UsergroupDeleteOutlined,
 } from "@ant-design/icons";
+
+export const adminMenuList = [
+  {
+    icon: <UsergroupDeleteOutlined />,
+    title: "Kullanıcılar",
+    items: [{ payload: "userList", title: "Listele" }],
+  },
+];
 
 export const customerMenuList = [
   {
