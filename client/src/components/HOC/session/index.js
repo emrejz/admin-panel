@@ -18,7 +18,7 @@ const SessionHOC = (WrappedComponent) =>
           setSession(null);
           setError(null);
           const result = await fetch(
-            process.env.REACT_APP_CUSTOMER_PRODUCT_API + "/api/user/auth",
+            process.env.REACT_APP_CUSTOMER_PRODUCT_API + "/api/auth",
             {
               method: "post",
               headers: {
