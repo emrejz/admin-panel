@@ -5,6 +5,9 @@ import { Layout, Spin } from "antd";
 import CustomHeader from "./header";
 import CustomMenu from "./menu";
 
+//constants
+import { adminRole } from "../../constants/general";
+
 //scss
 import "./index.scss";
 
@@ -26,7 +29,7 @@ export default ({ session }) => {
         </Sider>
         <Layout>
           <Suspense fallback={<Spin size="large" className="spin" />}>
-            {role === "admin" ? <AdminContent /> : <CustomerContent />}
+            {role === adminRole ? <AdminContent /> : <CustomerContent />}
           </Suspense>
         </Layout>
       </Layout>

@@ -6,7 +6,11 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import customNotification from "../../../components/customNotification";
 
 //constants
-import { emailErrorCodes, passwordErrorCodes } from "../../../constants/errors";
+import {
+  emailErrorCodes,
+  passwordErrorCodes,
+  customerRole,
+} from "../../../constants/general";
 
 //scss
 import "./index.scss";
@@ -58,7 +62,7 @@ const SignForm = () => {
         {
           method: "post",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password, role: "customer" }),
+          body: JSON.stringify({ email, password, role: customerRole }),
         }
       );
       const res = await result.json();
