@@ -5,6 +5,7 @@
     103 =>  while signup for selected role 
 
     150 =>  while auth for failed authentication 
+    151 =>  while administration for user is not admin 
 
 3xx => unhandled 
     300 => general error

@@ -1,0 +1,24 @@
+.adminUserContentCont {
+  padding: 16px;
+  overflow-y: auto;
+
+  .userListItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 6px;
+    .buttons {
+      float: right;
+      span {
+        cursor: pointer;
+      }
+    }
+    .infoBox {
+      width: 100%;
+    }
+  }
+}

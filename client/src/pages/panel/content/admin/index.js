@@ -1,11 +1,10 @@
 import { useSelector } from "react-redux";
 
 //comps
-import CustomerProducts from "./product";
+import AdminUsers from "./user";
 
 export default () => {
   const { name } = useSelector((state) => state.selectedMenuItem);
-
-  if (name === "productList") return <CustomerProducts />;
+  if (name === "userList") return <AdminUsers />;
   else return <div></div>;
 };

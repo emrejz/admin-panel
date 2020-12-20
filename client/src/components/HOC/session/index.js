@@ -7,7 +7,7 @@ import customNotification from "../../customNotification";
 const SessionHOC = (WrappedComponent) =>
   function WrapperFn(props) {
     const token = localStorage.getItem("token");
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [session, setSession] = useState(null);
 
@@ -18,7 +18,7 @@ const SessionHOC = (WrappedComponent) =>
           setSession(null);
           setError(null);
           const result = await fetch(
-            process.env.REACT_APP_CUSTOMER_PRODUCT_API + "/api/user/auth",
+            process.env.REACT_APP_CUSTOMER_PRODUCT_API + "/api/auth",
             {
               method: "post",
               headers: {
@@ -38,7 +38,9 @@ const SessionHOC = (WrappedComponent) =>
           setLoading(false);
         }
       };
-      token && _fetch();
+
+      if (token) _fetch();
+      else setLoading(false);
     }, [token]);
     useEffect(() => {
       if (error) {
