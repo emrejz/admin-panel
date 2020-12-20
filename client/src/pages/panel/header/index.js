@@ -15,7 +15,7 @@ function CustomHeader({ role }) {
   return (
     <Header className="customHeaderCont">
       <Title level={2}>
-        {role === "admin" ? "Admin panel" : "Müşteri panel"}s
+        {role === "admin" ? "Admin panel" : "Müşteri panel"}
       </Title>
       <Button onClick={_onClick}>Sign Out</Button>
     </Header>
