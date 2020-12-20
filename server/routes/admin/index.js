@@ -7,9 +7,12 @@ const userSchema = require("../../models/user");
 
 router.get("/user/list", async function (req, res, next) {
   try {
-    const users = await userSchema.find({}).sort({ email: 1 });
-    if (users) res.json({ users });
-    else next({ message: "Ups something went wrong!", code: 300 });
+    const users = await userSchema
+      .find({}, "_id email role createdAt")
+      .sort({ email: 1 });
+    if (users) {
+      res.json({ users });
+    } else next({ message: "Ups something went wrong!", code: 300 });
   } catch (error) {
     next(error);
   }
