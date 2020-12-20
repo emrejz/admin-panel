@@ -1,0 +1,10 @@
+1xx => auth
+    100 =>  while signup for exists email
+    101 =>  while signin for no exists email
+    102 =>  while signin for wrong password
+    103 =>  while signup for selected role 
+
+    150 =>  while auth for failed authentication 
+
+3xx => unhandled 
+    300 => general error

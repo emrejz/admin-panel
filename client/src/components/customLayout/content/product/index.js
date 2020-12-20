@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Layout, List, Avatar, Typography, Spin } from "antd";
 import useSWR from "swr";
 

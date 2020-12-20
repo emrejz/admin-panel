@@ -8,6 +8,9 @@ const mongodb = require("./helpers/db/mongo");
 const customerProductRouter = require("./routes/customer/product");
 const userRouter = require("./routes/user");
 
+//middlewares
+const authMid = require("./middleware/authMid");
+
 const port = process.env.PORT || 3001;
 
 //mongo connection
@@ -17,14 +20,12 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-//todo auth middleware
-app.use((req, res, next) => {
-  const token = req.body.token || req.headers["x-access-token"];
-  // todo req.user=verify(token)
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log("🚀 ~ file: index.js ~ line 24 ~ app.use ~ req.user", req.user);
+//   next();
+// });
 
-app.use("/api/costomer/product", customerProductRouter);
+app.use("/api/costomer/product", authMid, customerProductRouter);
 app.use("/api/user", userRouter);
 
 //error handle
