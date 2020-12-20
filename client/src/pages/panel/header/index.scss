@@ -1,0 +1,19 @@
+.customHeaderCont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  h2 {
+    margin-left: 600px !important;
+    margin: 0 !important;
+    color: white !important;
+  }
+  button {
+    position: absolute;
+    right: 30px;
+  }
+  @media only screen and (max-width: 500px) {
+    h2 {
+      visibility: hidden;
+    }
+  }
+}
