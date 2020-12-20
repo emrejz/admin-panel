@@ -3,13 +3,16 @@ const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 require("dotenv").config();
-
 const mongodb = require("./helpers/db/mongo");
+
+//routes
 const customerProductRouter = require("./routes/customer/product");
-const userRouter = require("./routes/user");
+const authRouter = require("./routes/auth");
+const adminRouter = require("./routes/admin");
 
 //middlewares
 const authMid = require("./middleware/authMid");
+const adminMid = require("./middleware/adminMid");
 
 const port = process.env.PORT || 3001;
 
@@ -26,7 +29,8 @@ app.use(bodyParser.json());
 // });
 
 app.use("/api/costomer/product", authMid, customerProductRouter);
-app.use("/api/user", userRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/admin", adminMid, adminRouter);
 
 //error handle
 app.use((error, req, res, next) => {
