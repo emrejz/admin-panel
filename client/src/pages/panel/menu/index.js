@@ -2,8 +2,8 @@ import { Menu } from "antd";
 import { useDispatch } from "react-redux";
 
 //constants
-import { actionTypes } from "../../../../store/selectMenu/constants";
-import { customerMenuList } from "../../../../constants/errors";
+import { actionTypes } from "../../../store/selectMenu/constants";
+import { customerMenuList } from "../../../constants/menu";
 
 //scss
 import "./index.scss";

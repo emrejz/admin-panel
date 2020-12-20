@@ -4,11 +4,11 @@ import useSWR from "swr";
 
 //comps
 import ProductModal from "./modal";
-import CustomResult from "../../../components/customResult";
-import CustomSkeleton from "../../../components/customSkeleton";
+import CustomResult from "../../../../components/customResult";
+import CustomSkeleton from "../../../../components/customSkeleton";
 
 //helpers
-import useFetch from "../../../helpers/useFetch";
+import useFetch from "../../../../helpers/useFetch";
 
 //scss
 import "./index.scss";

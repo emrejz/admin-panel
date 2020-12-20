@@ -16,7 +16,7 @@ const Root = ({ session, error }) => {
       <Switch>
         <Route path="/sign">{!error && session ? <Panel /> : <Sign />}</Route>
         <Route path="/" exact>
-          {!error && session ? <Panel /> : <Sign />}
+          {!error && session ? <Panel session={session.user} /> : <Sign />}
         </Route>
         <Redirect to="/sign" />
       </Switch>
