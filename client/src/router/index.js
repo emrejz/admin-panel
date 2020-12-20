@@ -14,7 +14,9 @@ const Root = ({ session, error }) => {
   return (
     <Router>
       <Switch>
-        <Route path="/sign">{!error && session ? <Panel /> : <Sign />}</Route>
+        <Route path="/sign">
+          {!error && session ? <Panel session={session.user} /> : <Sign />}
+        </Route>
         <Route path="/" exact>
           {!error && session ? <Panel session={session.user} /> : <Sign />}
         </Route>
