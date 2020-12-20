@@ -7,7 +7,7 @@ const customerProductSchema = require("../../../models/customer/product");
 router.get("/", async function (req, res, next) {
   try {
     const products = await customerProductSchema
-      .find({})
+      .find({ customerID: req.user._id })
       .sort({ createdAt: -1 });
     if (products) res.json(products);
     else next({ message: "Ups something went wrong!" });
@@ -18,7 +18,10 @@ router.get("/", async function (req, res, next) {
 
 router.post("/add", async function (req, res, next) {
   try {
-    const product = await new customerProductSchema({ ...req.body }).save();
+    const product = await new customerProductSchema({
+      customerID: req.user._id,
+      ...req.body,
+    }).save();
     if (product) res.json(product);
     else next({ message: "Ups something went wrong!" });
   } catch (error) {
