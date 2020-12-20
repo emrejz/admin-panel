@@ -52,7 +52,7 @@ const SignForm = () => {
       setLoading(true);
       setError(null);
       const { email, password, remember } = values;
-      const path = signIn ? "/api/user/signin" : "/api/user/signup";
+      const path = signIn ? "/api/auth/signin" : "/api/auth/signup";
       const result = await fetch(
         process.env.REACT_APP_CUSTOMER_PRODUCT_API + path,
         {
