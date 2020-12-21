@@ -36,6 +36,7 @@ ReactDOM.render(
               const err = await res.json();
               if (err.error)
                 error = {
+                  code: 301,
                   message: error.message,
                   ...err.error,
                 };
