@@ -1,7 +1,47 @@
 {
-  "wellcome": "HOşgeldiniz aksfakfsafas",
-  "description": {
-    "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
-    "part2": "Switch language between english and german using buttons above."
+  "sign": {
+    "note": {
+      "1": "eposta: admin@a.com",
+      "2": "şifre: 123",
+      "3": "yönetici olarak giriş yapmak için"
+    },
+    "error": {
+      "validation": {
+        "email": {
+          "required": "Eposta boş olamaz!",
+          "isEmail": "Geçerli bir formatta eposta giriniz!"
+        },
+        "password": {
+          "required": "Şifre boş olamaz!",
+          "whitespace": "Şifre boşluk karakteri içeremez!",
+          "min": "Şifre minimum 3 karakterli olmalı!",
+          "match": "Şifre eşleşmiyor!"
+        }
+      }
+    },
+    "placeholder": {
+      "email": "Eposta",
+      "password": "Şifre",
+      "cPassword": "Şifreyi tekrar giriniz"
+    },
+    "text": {
+      "or": "ya da",
+      "remember": "Beni unutma",
+      "signIn": "giriş yap",
+      "signUp": "üye ol",
+      "register": "şimdi kayıt ol!"
+    }
+  },
+  "fetch": {
+    "text": {
+      "error": "Hata!"
+    },
+    "code": {
+      "100": "Bu e-posta mevcut!",
+      "101": "Bu e-posta mevcut değil!",
+      "102": "Şifre hatalı!",
+      "300": "Ups bir şeyler ters gitti!",
+      "301": "Veriler alınırken bir hata oluştu!"
+    }
   }
 }

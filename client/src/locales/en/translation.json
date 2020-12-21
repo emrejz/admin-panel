@@ -1,7 +1,47 @@
 {
-  "wellcome": "Welcome to react using react-i18next",
-  "description": {
-    "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
-    "part2": "Switch language between english and german using buttons above."
+  "sign": {
+    "note": {
+      "1": "email: admin@a.com",
+      "2": "password: 123",
+      "3": "for access as admin"
+    },
+    "error": {
+      "validation": {
+        "email": {
+          "required": "Email can not be empty!",
+          "isEmail": "Enter email with a valid format!"
+        },
+        "password": {
+          "required": "Password can not be empty!",
+          "whitespace": "Password cannot contain space char!",
+          "min": "Password can have a min 3 chars!",
+          "match": "Password does not match!"
+        }
+      }
+    },
+    "placeholder": {
+      "email": "Email",
+      "password": "Password",
+      "cPassword": "Re-enter password"
+    },
+    "text": {
+      "or": "or",
+      "remember": "Remember me",
+      "signIn": "sign in",
+      "signUp": "sign up",
+      "register": "register now!"
+    }
+  },
+  "fetch": {
+    "text": {
+      "error": "Error!"
+    },
+    "code": {
+      "100": "This email already exists!",
+      "101": "This email does not exist!",
+      "102": "Wrong password!",
+      "300": "Ups something went wrong!",
+      "301": "An error occurred while fetching the data!"
+    }
   }
 }
