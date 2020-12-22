@@ -1,9 +1,9 @@
+import { useTranslation } from "react-i18next";
 import customNotification from "../components/customNotification";
 
 const useFetch = () => {
+  const { t } = useTranslation();
   const token = localStorage.getItem("token");
-  const message = (method) =>
-    method === "post" ? "ekleme" : method === "put" ? "güncelleme" : "silme";
   const fetchOperation = async (method, path, body) => {
     try {
       const result = await fetch(
@@ -20,17 +20,19 @@ const useFetch = () => {
         throw new Error(res.error.message);
       } else {
         customNotification({
-          title: "Başarılı!",
-          description: `Ürün ${message(method)} başarılı!`,
+          title: t("useFetch.text.success"),
+          description: `${t("useFetch.text.product")} ${t(
+            "useFetch.text." + method
+          )} ${t("useFetch.text.success")}`,
         });
         return res;
       }
     } catch (error) {
       customNotification({
-        title: "Başarısız!",
-        description: `Ürün ${message(method)} başarısız oldu! Error: ${
-          error.message
-        }`,
+        title: t("useFetch.text.failed"),
+        description: `${t("useFetch.text.product")} ${t(
+          "useFetch.text." + method
+        )} ${t("useFetch.text.failed")} ${t("fetch.code." + error.code)}`,
       });
       throw new Error(error.message);
     }

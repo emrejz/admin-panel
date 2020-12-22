@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { mutate } from "swr";
 import { Button, Form, Input, InputNumber } from "antd";
+import { useTranslation } from "react-i18next";
 
 //helpers
 import useFetch from "../../../../../../../helpers/useFetch";
@@ -13,15 +14,8 @@ const layout = {
   wrapperCol: { span: 16 },
 };
 
-const validateMessages = {
-  required: "${label} boş olamaz!",
-
-  number: {
-    range: "${label}  ${min} - ${max} arasında olmalı",
-  },
-};
-
 const ProductModalForm = ({ form, item, handleCancel, setIsModalVisible }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const { fetchOperation } = useFetch();
 
@@ -29,7 +23,7 @@ const ProductModalForm = ({ form, item, handleCancel, setIsModalVisible }) => {
     setLoading(true);
     try {
       if (item) {
-        if (window.confirm("Ürün güncellenecek emin misiniz?")) {
+        if (window.confirm(t("panel.content.customer.confirm.update"))) {
           await fetchOperation("put", "/api/costomer/product/edit", {
             _id: item._id,
             ...form.getFieldsValue(),
@@ -39,7 +33,7 @@ const ProductModalForm = ({ form, item, handleCancel, setIsModalVisible }) => {
           );
         }
       } else {
-        if (window.confirm("Yeni ürün eklenecek emin misiniz?")) {
+        if (window.confirm(t("panel.content.customer.confirm.add"))) {
           const res = await fetchOperation(
             "post",
             "/api/costomer/product/add",
@@ -66,39 +60,84 @@ const ProductModalForm = ({ form, item, handleCancel, setIsModalVisible }) => {
       name="nest-messages"
       className="productModalFormContainer"
       onFinish={onFinish}
-      validateMessages={validateMessages}
     >
       <Form.Item
         name={"title"}
-        label="Başlık"
-        rules={[{ required: true, whitespace: true }]}
+        label={t("panel.content.customer.text.title")}
+        rules={[
+          {
+            required: true,
+            message: t(
+              "panel.content.customer.error.validation.title.required"
+            ),
+          },
+          {
+            whitespace: true,
+            message: t(
+              "panel.content.customer.error.validation.title.whitespace"
+            ),
+          },
+        ]}
       >
         <Input />
       </Form.Item>
       <Form.Item
         name={"picture"}
-        label="Fotoğraf"
-        rules={[{ required: true, whitespace: true }]}
+        label={t("panel.content.customer.text.pic")}
+        rules={[
+          {
+            required: true,
+            message: t("panel.content.customer.error.validation.pic.required"),
+          },
+          {
+            type: "url",
+            message: t("panel.content.customer.error.validation.pic.url"),
+          },
+        ]}
       >
         <Input />
       </Form.Item>
       <Form.Item
         name={"price"}
-        label="Fiyat"
-        rules={[{ type: "number", min: 0.1, max: 1000 }, { required: true }]}
+        label={t("panel.content.customer.text.price")}
+        rules={[
+          {
+            type: "number",
+            min: 0,
+            max: 1000,
+            message: t("panel.content.customer.error.validation.price.minMax"),
+          },
+          {
+            required: true,
+            message: t(
+              "panel.content.customer.error.validation.price.required"
+            ),
+          },
+        ]}
       >
         <InputNumber />
       </Form.Item>
       <Form.Item
         name={"description"}
-        label="Açıklama"
-        rules={[{ required: true, whitespace: true }]}
+        label={t("panel.content.customer.text.desc")}
+        rules={[
+          {
+            required: true,
+            message: t("panel.content.customer.error.validation.desc.required"),
+          },
+          {
+            whitespace: true,
+            message: t(
+              "panel.content.customer.error.validation.desc.whitespace"
+            ),
+          },
+        ]}
       >
         <Input />
       </Form.Item>
       <Form.Item className="buttons">
         <Button type="primary" htmlType="submit" loading={loading}>
-          Onay
+          {t("panel.content.customer.text.ok")}
         </Button>
         <Button
           type="danger"
@@ -106,7 +145,7 @@ const ProductModalForm = ({ form, item, handleCancel, setIsModalVisible }) => {
           onClick={handleCancel}
           loading={loading}
         >
-          İptal
+          {t("panel.content.customer.text.cancel")}
         </Button>
       </Form.Item>
     </Form>

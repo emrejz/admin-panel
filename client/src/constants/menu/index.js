@@ -5,31 +5,49 @@ import {
   UsergroupDeleteOutlined,
 } from "@ant-design/icons";
 
-export const adminMenuList = [
+export const adminMenuList = (t) => [
   {
     icon: <UsergroupDeleteOutlined />,
-    title: "Kullanıcılar",
-    items: [{ payload: "userList", title: "Listele" }],
+    title: t("menu.adminMenuList.user.text"),
+    items: [
+      { payload: "userList", title: t("menu.adminMenuList.user.items.1.text") },
+    ],
   },
 ];
 
-export const customerMenuList = [
+export const customerMenuList = (t) => [
   {
     icon: <ShoppingCartOutlined />,
-    title: "Ürün",
-    items: [{ payload: "productList", title: "Listele" }],
+    title: t("menu.customerMenuList.user.text"),
+    items: [
+      {
+        payload: "productList",
+        title: t("menu.customerMenuList.user.items.1.text"),
+      },
+    ],
   },
   {
     icon: <NotificationOutlined />,
-    title: "Sipariş",
+    title: t("menu.customerMenuList.order.text"),
     items: [
-      { payload: "orderNew", title: "Bekleyen" },
-      { payload: "orderList", title: "Listele" },
+      {
+        payload: "orderNew",
+        title: t("menu.customerMenuList.order.items.1.text"),
+      },
+      {
+        payload: "orderList",
+        title: t("menu.customerMenuList.order.items.2.text"),
+      },
     ],
   },
   {
     icon: <ProfileOutlined />,
-    title: "Stok",
-    items: [{ payload: "stockList", title: "Listele" }],
+    title: t("menu.customerMenuList.stock.text"),
+    items: [
+      {
+        payload: "stockList",
+        title: t("menu.customerMenuList.stock.items.1.text"),
+      },
+    ],
   },
 ];

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Spin } from "antd";
+import { useTranslation } from "react-i18next";
 
 //comps
 import customNotification from "../../customNotification";
@@ -10,6 +11,7 @@ const SessionHOC = (WrappedComponent) =>
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [session, setSession] = useState(null);
+    const { t } = useTranslation();
 
     useEffect(() => {
       const _fetch = async () => {
@@ -45,8 +47,8 @@ const SessionHOC = (WrappedComponent) =>
     useEffect(() => {
       if (error) {
         customNotification({
-          title: "Authenticate error!",
-          description: error.message,
+          title: t("fetch.text.error"),
+          description: t("fetch.code." + error.code),
         });
         localStorage.removeItem("token");
       }

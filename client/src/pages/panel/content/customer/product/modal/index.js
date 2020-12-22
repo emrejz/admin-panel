@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Typography, Form } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 //comps
 import ProductModalForm from "./form";
@@ -8,6 +9,7 @@ import ProductModalForm from "./form";
 const { Text } = Typography;
 
 const ProductModal = ({ item }) => {
+  const { t } = useTranslation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
   useEffect(() => {
@@ -24,7 +26,7 @@ const ProductModal = ({ item }) => {
   };
 
   const handleCancel = () => {
-    if (window.confirm("Çıkmak istediğinize emin misiniz?")) {
+    if (window.confirm(t("panel.content.customer.confirm.exit"))) {
       setIsModalVisible(false);
     }
   };
@@ -33,7 +35,7 @@ const ProductModal = ({ item }) => {
     <>
       {item ? (
         <Text onClick={showModal} type="warning">
-          düzelt
+          {t("panel.content.customer.text.edit")}
         </Text>
       ) : (
         <Button
@@ -42,7 +44,7 @@ const ProductModal = ({ item }) => {
           icon={<PlusOutlined />}
           onClick={showModal}
         >
-          Ekle
+          {t("panel.content.customer.text.add")}
         </Button>
       )}
 

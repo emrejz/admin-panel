@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Layout, List, Avatar, Typography, Spin } from "antd";
 import useSWR from "swr";
+import { useTranslation } from "react-i18next";
 
 //comps
 import ProductModal from "./modal";
@@ -17,6 +18,7 @@ const { Content } = Layout;
 const { Title, Text } = Typography;
 
 export default () => {
+  const { t } = useTranslation();
   const { data, error, mutate } = useSWR("/api/costomer/product");
   const [deletingID, setDeletingID] = useState(null);
 
@@ -25,14 +27,20 @@ export default () => {
     setDeletingID(_id);
     try {
       if (
-        window.confirm(title + " adlı ürünü silmek istediğinize emin misiniz?")
+        window.confirm(
+          t("panel.content.customer.confirm.delete") +
+            " " +
+            t("panel.content.customer.text.title") +
+            ": " +
+            title
+        )
       ) {
         await fetchOperation("delete", "/api/costomer/product/delete", {
           _id,
         });
         await mutate((data) => data.map((item) => item._id === _id));
-        setDeletingID(null);
       }
+      setDeletingID(null);
     } catch (error) {
       setDeletingID(null);
     }
@@ -60,11 +68,17 @@ export default () => {
                 <div className="infoBox">
                   <Title level={5}>{item.title}</Title>
                   <div>
-                    <Text strong>Fiyat: </Text>
+                    <Text strong>
+                      {t("panel.content.customer.text.price")}
+                      {": "}
+                    </Text>
                     <Text>{item.price} TL</Text>
                   </div>
                   <div>
-                    <Text strong>Açıklama: </Text>
+                    <Text strong>
+                      {t("panel.content.customer.text.desc")}
+                      {": "}
+                    </Text>
                     <Text>{item.description}</Text>
                   </div>
                   <div className="buttons">
@@ -78,7 +92,7 @@ export default () => {
                           type="danger"
                           onClick={() => removeProduct(item.title, item._id)}
                         >
-                          sil
+                          {t("panel.content.customer.text.delete")}
                         </Text>
                       </>
                     )}

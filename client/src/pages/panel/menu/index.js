@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu } from "antd";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 //constants
 import { actionTypes } from "../../../store/selectMenu/constants";
@@ -13,8 +14,9 @@ import "./index.scss";
 const { SubMenu } = Menu;
 
 function CustomMenu({ role }) {
+  const { t } = useTranslation();
   const [list, setList] = useState(
-    role === adminRole ? adminMenuList : customerMenuList
+    role === adminRole ? adminMenuList(t) : customerMenuList(t)
   );
   const dispatch = useDispatch();
   return (
