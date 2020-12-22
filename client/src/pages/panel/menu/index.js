@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Menu } from "antd";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -15,9 +14,7 @@ const { SubMenu } = Menu;
 
 function CustomMenu({ role }) {
   const { t } = useTranslation();
-  const [list, setList] = useState(
-    role === adminRole ? adminMenuList(t) : customerMenuList(t)
-  );
+  const list = role === adminRole ? adminMenuList(t) : customerMenuList(t);
   const dispatch = useDispatch();
   return (
     <Menu mode="inline" className="cutomMenuCont">
