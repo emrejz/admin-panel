@@ -15,8 +15,8 @@ const resources = {
   },
 };
 const detection = {
-  order: ["querystring", "navigator"],
-  lookupQuerystring: "lng",
+  order: ["localStorage", "navigator"],
+  lookupLocalStorage: "i18nextLng",
 };
 i18n
   .use(LanguageDetector)
@@ -26,7 +26,6 @@ i18n
     detection,
     // lng: "en",
     fallbackLng: "en",
-
     interpolation: {
       escapeValue: false,
     },
