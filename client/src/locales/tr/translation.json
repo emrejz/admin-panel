@@ -34,7 +34,8 @@
   },
   "fetch": {
     "text": {
-      "error": "Hata!"
+      "error": "Hata!",
+      "success": "Başarılı!"
     },
     "code": {
       "100": "Bu e-posta mevcut!",
@@ -42,6 +43,123 @@
       "102": "Şifre hatalı!",
       "300": "Ups bir şeyler ters gitti!",
       "301": "Veriler alınırken bir hata oluştu!"
+    }
+  },
+  "customResult": {
+    "text": {
+      "refresh": "Siteyi yenile"
+    }
+  },
+  "menu": {
+    "adminMenuList": {
+      "user": {
+        "text": "Kullanıcılar",
+        "items": {
+          "1": {
+            "text": "Listele"
+          }
+        }
+      }
+    },
+    "customerMenuList": {
+      "user": {
+        "text": "Ürün",
+        "items": {
+          "1": {
+            "text": "Listele"
+          }
+        }
+      },
+      "order": {
+        "text": "Sipariş",
+        "items": {
+          "1": {
+            "text": "Yeni"
+          },
+          "2": {
+            "text": "Listele"
+          }
+        }
+      },
+      "stock": {
+        "text": "Stok",
+        "items": {
+          "1": {
+            "text": "Listele"
+          }
+        }
+      }
+    }
+  },
+  "useFetch": {
+    "text": {
+      "post": "ekleme",
+      "delete": "silme",
+      "put": "güncelleme",
+      "product": "ürün",
+      "success": "başarılı!",
+      "fail": "başarısız!",
+      "error": "hata:"
+    }
+  },
+  "panel": {
+    "header": {
+      "text": {
+        "signOut": "Çıkış yap",
+        "admin": "Yönetici paneli",
+        "customer": "Müşteri paneli"
+      },
+      "confirm": { "exit": "Çıkmak istediğinize emin misiniz?" }
+    },
+    "content": {
+      "admin": {
+        "text": {
+          "email": "Eposta:",
+          "role": "Rol:",
+          "createdAt": "Oluşturma tarihi:",
+          "edit": "düzelt",
+          "delete": "sil"
+        }
+      },
+      "customer": {
+        "text": {
+          "price": "Fiyat",
+          "desc": "Açıklama",
+          "delete": "sil",
+          "add": "Ekle",
+          "edit": "düzelt",
+          "title": "Başlık",
+          "pic": "Fotoğraf",
+          "ok": "Onay",
+          "cancel": "İptal"
+        },
+        "confirm": {
+          "exit": "Formu kapatmak istediğinize emin misiniz?",
+          "delete": "Bu ürün silinecek emin misiniz? ",
+          "update": "Ürün güncellenecek emin misiniz?",
+          "add": "Yeni ürün eklenecek emin misiniz?"
+        },
+        "error": {
+          "validation": {
+            "title": {
+              "required": "Başlık boş olamaz!",
+              "whitespace": "Başlık bir karakter içermeli!"
+            },
+            "pic": {
+              "required": "Fotoğraf url boş olamaz!",
+              "url": "Fotoğraf url doğru bir formatta değil!"
+            },
+            "price": {
+              "required": "Fiyat boş olamaz!",
+              "minMax": "Fiyat 0 - 1000 arasında olmalı!"
+            },
+            "desc": {
+              "required": "Açıklama boş olamaz!",
+              "whitespace": "Açıklama bir karakter içermeli!"
+            }
+          }
+        }
+      }
     }
   }
 }
