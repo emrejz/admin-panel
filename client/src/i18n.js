@@ -25,7 +25,7 @@ i18n
     resources,
     detection,
     // lng: "en",
-    fallbackLng: "tr",
+    fallbackLng: "en",
 
     interpolation: {
       escapeValue: false,
