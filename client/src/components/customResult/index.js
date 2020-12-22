@@ -1,6 +1,9 @@
 import { Result, Button } from "antd";
+import { useTranslation } from "react-i18next";
 
 const CustomResult = ({ message }) => {
+  const { t } = useTranslation();
+
   return (
     <>
       <Result
@@ -8,7 +11,7 @@ const CustomResult = ({ message }) => {
         subTitle={message}
         extra={
           <Button type="primary" onClick={() => window.location.reload()}>
-            Refresh site
+            {t("customResult.text.refresh")}
           </Button>
         }
       />

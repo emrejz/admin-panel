@@ -1,0 +1,165 @@
+{
+  "sign": {
+    "note": {
+      "1": "email: admin@a.com",
+      "2": "password: 123",
+      "3": "for access as admin"
+    },
+    "error": {
+      "validation": {
+        "email": {
+          "required": "Email must not be empty!",
+          "isEmail": "Enter email in valid format!"
+        },
+        "password": {
+          "required": "Password must not be empty!",
+          "whitespace": "Password must not consist whitespace char(s)!",
+          "min": "Password length must be at least 3 chars!",
+          "match": "Password does not match!"
+        }
+      }
+    },
+    "placeholder": {
+      "email": "Email",
+      "password": "Password",
+      "cPassword": "Re-enter password"
+    },
+    "text": {
+      "or": "or",
+      "remember": "Remember me",
+      "signIn": "sign in",
+      "signUp": "sign up",
+      "register": "register now!"
+    }
+  },
+  "fetch": {
+    "text": {
+      "error": "Error!",
+      "success": "Successful!"
+    },
+    "code": {
+      "100": "This email already exist!",
+      "101": "This email does not exist!",
+      "102": "Wrong password!",
+      "300": "Ups something went wrong!",
+      "301": "An error occurred while fetching the data!"
+    }
+  },
+  "customResult": {
+    "text": {
+      "refresh": "Refresh site"
+    }
+  },
+  "menu": {
+    "adminMenuList": {
+      "user": {
+        "text": "Users",
+        "items": {
+          "1": {
+            "text": "List"
+          }
+        }
+      }
+    },
+    "customerMenuList": {
+      "user": {
+        "text": "Product",
+        "items": {
+          "1": {
+            "text": "List"
+          }
+        }
+      },
+      "order": {
+        "text": "Order",
+        "items": {
+          "1": {
+            "text": "New"
+          },
+          "2": {
+            "text": "List"
+          }
+        }
+      },
+      "stock": {
+        "text": "Stock",
+        "items": {
+          "1": {
+            "text": "List"
+          }
+        }
+      }
+    }
+  },
+  "useFetch": {
+    "text": {
+      "post": "addition",
+      "delete": "deletion",
+      "put": "update",
+      "product": "product",
+      "success": "successful!",
+      "fail": "fail!",
+      "error": "error:"
+    }
+  },
+  "panel": {
+    "header": {
+      "text": {
+        "signOut": "Sign out",
+        "admin": "Admin panel",
+        "customer": "Customer panel"
+      },
+      "confirm": { "exit": "Are you sure you want to sign out?" }
+    },
+    "content": {
+      "admin": {
+        "text": {
+          "email": "Email:",
+          "role": "Role:",
+          "createdAt": "Created at:",
+          "edit": "edit",
+          "delete": "delete"
+        }
+      },
+      "customer": {
+        "text": {
+          "price": "Price",
+          "desc": "Description",
+          "delete": "delete",
+          "add": "Add",
+          "edit": "edit",
+          "title": "Title",
+          "pic": "Picture",
+          "ok": "Ok",
+          "cancel": "Cancel"
+        },
+        "confirm": {
+          "exit": "Are you sure you want to close the form?",
+          "delete": "Are you sure this product will be deleted? ",
+          "update": "Are you sure this product will be updated? ",
+          "add": "Are you sure that new product will be added?"
+        },
+        "error": {
+          "validation": {
+            "title": {
+              "required": "Title must not be empty!",
+              "whitespace": "Title must not consist whitespace char(s)!"
+            },
+            "pic": {
+              "required": "Picture's URL must not be empty!",
+              "url": "Picture's URL does not valid format!"
+            },
+            "price": {
+              "required": "Price must not empty!",
+              "minMax": "Price must be between 0 - 1000!"
+            },
+            "desc": {
+              "required": "Description must not be empty!",
+              "whitespace": "Description must not consist whitespace char(s)!"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 //comps
 import SignForm from "./form";
 
@@ -5,12 +7,12 @@ import SignForm from "./form";
 import "./index.scss";
 
 const Sign = () => {
+  const { t } = useTranslation();
   return (
     <div className="signContainer">
-      <div>email: admin@a.com </div>
-      <div>password: 123</div>
-      <div>for access as admin </div>
-
+      <div>{t("sign.note.1")} </div>
+      <div>{t("sign.note.2")} </div>
+      <div>{t("sign.note.3")} </div>
       <SignForm />
     </div>
   );

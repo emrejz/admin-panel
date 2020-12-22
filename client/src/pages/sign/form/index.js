@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 //comps
 import customNotification from "../../../components/customNotification";
@@ -20,6 +21,7 @@ const SignForm = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
+  const { t } = useTranslation();
 
   useEffect(() => {
     form.resetFields();
@@ -30,12 +32,12 @@ const SignForm = () => {
   }, [signIn]);
   useEffect(() => {
     if (error) {
-      const { code, message } = error;
+      const { code } = error;
       if (emailErrorCodes.includes(code)) {
         form.setFields([
           {
             name: "email",
-            errors: [message],
+            errors: [t("fetch.code." + code)],
           },
         ]);
       }
@@ -43,12 +45,14 @@ const SignForm = () => {
         form.setFields([
           {
             name: "password",
-            errors: [message],
+            errors: [t("fetch.code." + code)],
           },
         ]);
-      } else {
-        customNotification({ title: "Hata", description: message });
       }
+      customNotification({
+        title: t("fetch.text.error"),
+        description: t("fetch.code." + code),
+      });
     }
   }, [error]);
   const onFinish = async (values) => {
@@ -100,14 +104,14 @@ const SignForm = () => {
         rules={[
           {
             required: true,
-            message: "Lütfen email giriniz!",
+            message: t("sign.error.validation.email.required"),
           },
-          { type: "email", message: "Geçerli bir email giriniz!" },
+          { type: "email", message: t("sign.error.validation.email.isEmail") },
         ]}
       >
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="Email"
+          placeholder={t("sign.placeholder.email")}
         />
       </Form.Item>
       <Form.Item
@@ -116,23 +120,23 @@ const SignForm = () => {
         rules={[
           {
             required: true,
-            message: "Lütfen şifre giriniz!",
+            message: t("sign.error.validation.password.required"),
           },
           {
             required: true,
             pattern: new RegExp("^\\S*$"),
-            message: "Şifre boşluk karakteri içeremez!",
+            message: t("sign.error.validation.password.whitespace"),
           },
           {
             min: 3,
-            message: "Şifre minimum 3 karakterli olmalı!",
+            message: t("sign.error.validation.password.min"),
           },
         ]}
       >
         <Input
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
-          placeholder="Şifre"
+          placeholder={t("sign.placeholder.password")}
         />
       </Form.Item>
       {!signIn && (
@@ -143,19 +147,21 @@ const SignForm = () => {
           rules={[
             {
               required: true,
-              message: "Lütfen şifre giriniz!",
+              message: t("sign.error.validation.password.required"),
             },
             {
               required: true,
               pattern: new RegExp("^\\S*$"),
-              message: "Şifre boşluk karakteri içeremez!",
+              message: t("sign.error.validation.password.whitespace"),
             },
             ({ getFieldValue }) => ({
               validator(rule, value) {
                 if (!value || getFieldValue("password") === value) {
                   return Promise.resolve();
                 }
-                return Promise.reject("Şifreler eşleşmiyor!");
+                return Promise.reject(
+                  t("sign.error.validation.password.match")
+                );
               },
             }),
           ]}
@@ -163,13 +169,13 @@ const SignForm = () => {
           <Input
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
-            placeholder="Şifreyi tekrar giriniz"
+            placeholder={t("sign.placeholder.cPassword")}
           />
         </Form.Item>
       )}
       <Form.Item>
         <Form.Item name="remember" valuePropName="checked" noStyle>
-          <Checkbox>Remember me</Checkbox>
+          <Checkbox>{t("sign.text.remember")}</Checkbox>
         </Form.Item>
       </Form.Item>
 
@@ -180,9 +186,12 @@ const SignForm = () => {
           htmlType="submit"
           className="login-form-button"
         >
-          {signIn ? "Sign in" : "Sign Up"}
+          {signIn ? t("sign.text.signIn") : t("sign.text.signUp")}
         </Button>
-        Or <a onClick={signInSwitch}>{signIn ? "register now!" : "sign in!"}</a>
+        {t("sign.text.or")}{" "}
+        <a onClick={signInSwitch}>
+          {signIn ? t("sign.text.register") : t("sign.text.signIn")}
+        </a>
       </Form.Item>
     </Form>
   );

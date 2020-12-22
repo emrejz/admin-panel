@@ -8,4 +8,5 @@
     151 =>  while administration for user is not admin 
 
 3xx => unhandled 
-    300 => general error
+    300 => general error backend-side
+    301 => general error front-side
