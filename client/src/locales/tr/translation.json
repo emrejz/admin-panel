@@ -96,7 +96,6 @@
       "post": "ekleme",
       "delete": "silme",
       "put": "güncelleme",
-      "product": "ürün",
       "success": "başarılı!",
       "fail": "başarısız!",
       "error": "hata:"
