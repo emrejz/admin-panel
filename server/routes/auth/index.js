@@ -2,6 +2,10 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const router = express.Router();
 
+//middlewares
+const existUserMid = require("../../middleware/existUserMid.js");
+const authMid = require("../../middleware/authMid");
+
 //models
 const userSchema = require("../../models/user");
 
@@ -9,7 +13,7 @@ const userSchema = require("../../models/user");
 const { USER_ADMIN_ROLE } = require("../../constants");
 
 //helpers
-const { sign, verify } = require("../../helpers/jwt");
+const { sign } = require("../../helpers/jwt");
 
 router.post("/signup", async function (req, res, next) {
   try {
@@ -46,24 +50,8 @@ router.post("/signin", async function (req, res, next) {
   }
 });
 
-router.post("/", async function (req, res, next) {
-  try {
-    const token = req.headers["authorization"];
-    if (token && token !== "null") {
-      const user = await verify(token);
-      return res.json({ user });
-    } else {
-      next({
-        message: "Authentication failed, please sign in again!",
-        code: 150,
-      });
-    }
-  } catch (error) {
-    next({
-      message: "Authentication failed, please sign in again!",
-      code: 150,
-    });
-  }
+router.post("/", authMid, existUserMid, function (req, res, next) {
+  res.json({ user: req.user });
 });
 
 module.exports = router;
