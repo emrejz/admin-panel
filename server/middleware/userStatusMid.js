@@ -1,7 +1,6 @@
 const userSchema = require("../models/user");
 
 module.exports = async (req, res, next) => {
-  console.log(req.user);
   try {
     const { _id, email, role } = req.user;
     const result = await userSchema.findById(_id);
