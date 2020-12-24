@@ -38,7 +38,10 @@ export default () => {
         await fetchOperation("delete", "/api/costomer/product/delete", {
           _id,
         });
-        await mutate(data.filter((item) => item._id !== _id));
+        await mutate(
+          data.filter((item) => item._id !== _id),
+          false
+        );
       }
       setDeletingID(null);
     } catch (error) {

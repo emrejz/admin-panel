@@ -29,12 +29,13 @@ const ProductModalForm = ({ form, item, handleCancel, setIsModalVisible }) => {
             ...form.getFieldsValue(),
           });
 
-          mutate("/api/costomer/product", (data) =>
-            data.map(
-              (elem) =>
-                elem._id === item._id ? { _id: item._id, ...values } : elem,
-              false
-            )
+          mutate(
+            "/api/costomer/product",
+            (data) =>
+              data.map((elem) =>
+                elem._id === item._id ? { _id: item._id, ...values } : elem
+              ),
+            false
           );
         }
       } else {
