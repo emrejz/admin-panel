@@ -13,7 +13,7 @@ const adminRouter = require("./routes/admin");
 //middlewares
 const authMid = require("./middleware/authMid");
 const adminMid = require("./middleware/adminMid");
-const existUserMid = require("./middleware/existUserMid.js");
+const userStatusMid = require("./middleware/userStatusMid.js");
 
 const port = process.env.PORT || 3001;
 
@@ -29,9 +29,9 @@ app.use(bodyParser.json());
 //   next();
 // });
 
-app.use("/api/costomer/product", authMid, existUserMid, customerProductRouter);
+app.use("/api/costomer/product", authMid, userStatusMid, customerProductRouter);
 app.use("/api/auth", authRouter);
-app.use("/api/admin", adminMid, existUserMid, adminRouter);
+app.use("/api/admin", adminMid, userStatusMid, adminRouter);
 
 //error handle
 app.use((error, req, res, next) => {
