@@ -93,11 +93,10 @@
   },
   "useFetch": {
     "text": {
-      "post": "addition",
-      "delete": "deletion",
-      "put": "update",
-      "product": "product",
-      "success": "successful!",
+      "post": "added",
+      "delete": "deleted",
+      "put": "updated",
+      "success": "successfully!",
       "fail": "fail!",
       "error": "error:"
     }
@@ -118,7 +117,31 @@
           "role": "Role:",
           "createdAt": "Created at:",
           "edit": "edit",
-          "delete": "delete"
+          "delete": "delete",
+          "modalTitle": "Edit user",
+          "admin": "Admin",
+          "customer": "Customer",
+          "user": "User",
+          "ok": "Ok",
+          "cancel": "Cancel"
+        },
+        "confirm": {
+          "exit": "Are you sure you want to close the form?",
+          "delete": "Are you sure this user will be deleted? ",
+          "deleteAll": "Do you want to delete this user's products ? ",
+          "update": "Are you sure this user will be updated? ",
+          "add": "Are you sure that new user will be added?"
+        },
+        "error": {
+          "validation": {
+            "email": {
+              "required": "Email must not be empty!",
+              "isEmail": "Enter email in valid format!"
+            },
+            "role": {
+              "required": "Role must not be empty!"
+            }
+          }
         }
       },
       "customer": {
@@ -131,7 +154,9 @@
           "title": "Title",
           "pic": "Picture",
           "ok": "Ok",
-          "cancel": "Cancel"
+          "cancel": "Cancel",
+          "modalTitleEdit": "Edit product",
+          "modalTitleNew": "Add new product"
         },
         "confirm": {
           "exit": "Are you sure you want to close the form?",

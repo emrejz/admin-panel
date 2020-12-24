@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Typography, Form } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { Modal, Typography, Form } from "antd";
 import { useTranslation } from "react-i18next";
 
 //comps
-import ProductModalForm from "./form";
+import UserModalForm from "./form";
 
 const { Text } = Typography;
 
-const ProductModal = ({ item }) => {
+const UserModal = ({ item }) => {
   const { t } = useTranslation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
@@ -26,39 +25,23 @@ const ProductModal = ({ item }) => {
   };
 
   const handleCancel = () => {
-    if (window.confirm(t("panel.content.customer.confirm.exit"))) {
+    if (window.confirm(t("panel.content.admin.confirm.exit"))) {
       setIsModalVisible(false);
     }
   };
 
   return (
     <>
-      {item ? (
-        <Text onClick={showModal} type="warning">
-          {t("panel.content.customer.text.edit")}
-        </Text>
-      ) : (
-        <Button
-          className="addButton"
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={showModal}
-        >
-          {t("panel.content.customer.text.add")}
-        </Button>
-      )}
-
+      <Text onClick={showModal} type="warning">
+        {t("panel.content.admin.text.edit")}
+      </Text>
       <Modal
-        title={
-          item
-            ? t("panel.content.customer.text.modalTitleEdit")
-            : t("panel.content.customer.text.modalTitleNew")
-        }
+        title={t("panel.content.admin.text.modalTitle")}
         visible={isModalVisible}
         onCancel={handleCancel}
         footer={null}
       >
-        <ProductModalForm
+        <UserModalForm
           form={form}
           item={item}
           handleCancel={handleCancel}
@@ -68,4 +51,4 @@ const ProductModal = ({ item }) => {
     </>
   );
 };
-export default ProductModal;
+export default UserModal;
