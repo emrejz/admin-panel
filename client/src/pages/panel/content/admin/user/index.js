@@ -5,6 +5,9 @@ import useSWR from "swr";
 //comps
 import CustomResult from "../../../../../components/customResult";
 import CustomSkeleton from "../../../../../components/customSkeleton";
+import UserModal from "./modal";
+
+//helpers
 import useFetch from "../../../../../helpers/useFetch";
 
 //scss
@@ -21,8 +24,8 @@ export default () => {
   const deleteUser = async (_id, email) => {
     try {
       const body = { _id, deleteProducts: false };
-      if (window.confirm("Silme gerçekleşecek emin misiniz? " + email)) {
-        if (window.confirm("Kullanıcıya ait verilerde silinsin mi?")) {
+      if (window.confirm(t("panel.content.admin.confirm.delete") + email)) {
+        if (window.confirm(t("panel.content.admin.confirm.deleteAll"))) {
           body.deleteProducts = true;
         }
 
@@ -62,9 +65,7 @@ export default () => {
                   </div>
                   <div className="buttons">
                     <>
-                      <Text type="warning">
-                        {t("panel.content.admin.text.edit")}
-                      </Text>
+                      <UserModal item={item} />
                       {" | "}
                       <Text
                         onClick={() => deleteUser(item._id, item.email)}
