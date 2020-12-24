@@ -21,18 +21,18 @@ const useFetch = () => {
       } else {
         customNotification({
           title: t("useFetch.text.success"),
-          description: `${t("useFetch.text.product")} ${t(
-            "useFetch.text." + method
-          )} ${t("useFetch.text.success")}`,
+          description: `${t("useFetch.text." + method)} ${t(
+            "useFetch.text.success"
+          )}`,
         });
         return res;
       }
     } catch (error) {
       customNotification({
         title: t("useFetch.text.failed"),
-        description: `${t("useFetch.text.product")} ${t(
-          "useFetch.text." + method
-        )} ${t("useFetch.text.failed")} ${t("fetch.code." + error.code)}`,
+        description: `${t("useFetch.text." + method)} ${t(
+          "useFetch.text.failed"
+        )} ${t("fetch.code." + error.code)}`,
       });
       throw new Error(error.message);
     }
