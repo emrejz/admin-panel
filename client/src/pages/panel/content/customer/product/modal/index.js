@@ -49,7 +49,11 @@ const ProductModal = ({ item }) => {
       )}
 
       <Modal
-        title={item ? "Ürünü düzenle" : "Yeni ürün ekle"}
+        title={
+          item
+            ? t("panel.content.customer.text.modalTitleEdit")
+            : t("panel.content.customer.text.modalTitleNew")
+        }
         visible={isModalVisible}
         onCancel={handleCancel}
         footer={null}
