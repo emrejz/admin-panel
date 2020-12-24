@@ -58,6 +58,7 @@ export default () => {
             dataSource={data}
             renderItem={(item) => (
               <List.Item
+                key={item._id}
                 className={
                   deletingID === item._id
                     ? "customerProductListItem deletingItem"
