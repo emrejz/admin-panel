@@ -96,7 +96,6 @@
       "post": "ekleme",
       "delete": "silme",
       "put": "güncelleme",
-      "product": "ürün",
       "success": "başarılı!",
       "fail": "başarısız!",
       "error": "hata:"
@@ -118,7 +117,31 @@
           "role": "Rol:",
           "createdAt": "Oluşturma tarihi:",
           "edit": "düzelt",
-          "delete": "sil"
+          "delete": "sil",
+          "modalTitle": "Kullanıcıyı düzenle",
+          "admin": "Yönetici",
+          "customer": "Müşteri",
+          "user": "Kullanıcı",
+          "ok": "Onay",
+          "cancel": "İptal"
+        },
+        "confirm": {
+          "exit": "Formu kapatmak istediğinize emin misiniz?",
+          "delete": "Bu kullanıcı silinecek emin misiniz? ",
+          "deleteAll": "Bu kullanıcıya ait her şey silinsin mi? ",
+          "update": "Bu kullanıcı güncellenecek emin misiniz?",
+          "add": "Yeni ürün eklenecek emin misiniz?"
+        },
+        "error": {
+          "validation": {
+            "email": {
+              "required": "Eposta boş olamaz!",
+              "isEmail": "Geçerli bir formatta eposta giriniz!"
+            },
+            "role": {
+              "required": "Rol boş olamaz!"
+            }
+          }
         }
       },
       "customer": {
@@ -131,7 +154,9 @@
           "title": "Başlık",
           "pic": "Fotoğraf",
           "ok": "Onay",
-          "cancel": "İptal"
+          "cancel": "İptal",
+          "modalTitleEdit": "Ürünü düzenle",
+          "modalTitleNew": "Yeni ürün ekle"
         },
         "confirm": {
           "exit": "Formu kapatmak istediğinize emin misiniz?",

@@ -6,6 +6,8 @@
 
     150 =>  while auth for failed authentication 
     151 =>  while administration for user is not admin 
+    152 =>  if admin deletes user
+    153 =>  if admin changed user
 
 3xx => unhandled 
     300 => general error backend-side

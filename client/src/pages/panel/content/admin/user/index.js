@@ -5,6 +5,10 @@ import useSWR from "swr";
 //comps
 import CustomResult from "../../../../../components/customResult";
 import CustomSkeleton from "../../../../../components/customSkeleton";
+import UserModal from "./modal";
+
+//helpers
+import useFetch from "../../../../../helpers/useFetch";
 
 //scss
 import "./index.scss";
@@ -15,6 +19,21 @@ const { Text } = Typography;
 export default () => {
   const { t } = useTranslation();
   const { data, error, mutate } = useSWR("/api/admin/user/list");
+  const { fetchOperation } = useFetch();
+
+  const deleteUser = async (_id, email) => {
+    try {
+      const body = { _id, deleteProducts: false };
+      if (window.confirm(t("panel.content.admin.confirm.delete") + email)) {
+        if (window.confirm(t("panel.content.admin.confirm.deleteAll"))) {
+          body.deleteProducts = true;
+        }
+
+        await fetchOperation("delete", "/api/admin/user/delete", body);
+        await mutate(data.filter((item) => item._id !== _id));
+      }
+    } catch (error) {}
+  };
   return (
     <Content className="adminUserContentCont">
       {error ? (
@@ -26,7 +45,7 @@ export default () => {
             itemLayout="horizontal"
             dataSource={data.users}
             renderItem={(item) => (
-              <List.Item className={"userListItem"}>
+              <List.Item key={item._id} className={"userListItem"}>
                 <div className="infoBox">
                   <Text strong>{t("panel.content.admin.text.email")} </Text>
                   <Text>{item.email}</Text>
@@ -46,11 +65,12 @@ export default () => {
                   </div>
                   <div className="buttons">
                     <>
-                      <Text type="warning">
-                        {t("panel.content.admin.text.edit")}
-                      </Text>
+                      <UserModal item={item} />
                       {" | "}
-                      <Text type="danger">
+                      <Text
+                        onClick={() => deleteUser(item._id, item.email)}
+                        type="danger"
+                      >
                         {t("panel.content.admin.text.delete")}
                       </Text>
                     </>

@@ -10,16 +10,17 @@ module.exports = (req, res, next) => {
     if (token && token !== "null") {
       const user = verify(token);
       if (user.role === USER_ADMIN_ROLE) {
-        next();
+        req.user = user;
+        return next();
       }
     } else {
-      next({
+      return next({
         message: "It's not your business!",
         code: 151,
       });
     }
   } catch (error) {
-    next({
+    return next({
       message: "Authentication failed, please sign in again!",
       code: 150,
     });
