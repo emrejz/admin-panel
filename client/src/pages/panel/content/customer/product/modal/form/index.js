@@ -28,8 +28,13 @@ const ProductModalForm = ({ form, item, handleCancel, setIsModalVisible }) => {
             _id: item._id,
             ...form.getFieldsValue(),
           });
-          await mutate("/api/costomer/product", (data) =>
-            data.map((elem) => (elem._id === item._id ? item : elem))
+
+          mutate("/api/costomer/product", (data) =>
+            data.map(
+              (elem) =>
+                elem._id === item._id ? { _id: item._id, ...values } : elem,
+              false
+            )
           );
         }
       } else {
@@ -41,7 +46,8 @@ const ProductModalForm = ({ form, item, handleCancel, setIsModalVisible }) => {
               ...form.getFieldsValue(),
             }
           );
-          await mutate("/api/costomer/product", (data) => [res, ...data]);
+
+          mutate("/api/costomer/product", (data) => [res, ...data], false);
         }
       }
 
