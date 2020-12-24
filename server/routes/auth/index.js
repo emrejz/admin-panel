@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const router = express.Router();
 
 //middlewares
-const existUserMid = require("../../middleware/existUserMid.js");
+const userStatusMid = require("../../middleware/userStatusMid.js");
 const authMid = require("../../middleware/authMid");
 
 //models
@@ -50,7 +50,7 @@ router.post("/signin", async function (req, res, next) {
   }
 });
 
-router.post("/", authMid, existUserMid, function (req, res, next) {
+router.post("/", authMid, userStatusMid, function (req, res, next) {
   res.json({ user: req.user });
 });
 
